@@ -9,6 +9,7 @@ const profileRoutes = require('./routes/profile');
 const updateRoutes = require('./routes/update');
 const commentRoutes = require('./routes/comment');
 const linkRoutes = require('./routes/link');
+const replyRoutes = require('./routes/reply');
 const taskRoutes = require('./routes/task');
 const notificationRoutes = require('./routes/notification');
 
@@ -37,6 +38,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/update", updateRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/link", linkRoutes);
+app.use("/api/reply", replyRoutes);
 app.use("/api/task", taskRoutes);
 app.use("/api/notification", notificationRoutes);
 

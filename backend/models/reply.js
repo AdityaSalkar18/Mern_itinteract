@@ -1,22 +1,29 @@
 const mongoose = require('mongoose');
 
-const linkSchema = new mongoose.Schema({
-    task: {
+const replySchema = new mongoose.Schema({
+    link: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Task', // Reference to the Task model
+        ref: 'Link', // Reference to the Link model
         required: true,
     },
 
-    
-    tasksd:{
+   
+
+    linkuid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Link', // Reference to the Link model
+        required: true,
+    },
+  
+    linksd: {
         type: String,
         required: true,
+       
     },
-
     
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // Reference to the User model
+        ref: 'User', // Reference to the User model (task owner)
         required: true,
     },
 
@@ -24,23 +31,26 @@ const linkSchema = new mongoose.Schema({
     upid:{
         type: String,
         required: true,
+
     },
-    
+
     name: {
         type: String,
         required: true,
     },
-    link: {
+
+    reply:{
         type: String,
-        required: true,
+        required: true, 
+         
+
     },
-    desc: {
-        type: String,
-    },
+  
+   
     date: {
         type: Date,
         default: Date.now, // Automatically set to the current date/time
     },
 });
 
-module.exports = mongoose.model('Link', linkSchema);
+module.exports = mongoose.model('Reply', replySchema);

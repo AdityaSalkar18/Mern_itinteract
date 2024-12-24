@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
@@ -26,6 +28,32 @@ const colors = generateShades(baseColor, 4); // Generate 4 shades for consistenc
 export default function TaskImpact() {
   const domains = Object.entries(domainToSubdomainMap);
 
+
+  const [replies, setReplies] = useState([]);
+  
+
+  useEffect(() => {
+    // Fetch the replies from the backend using Axios
+    const fetchReplies = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get("http://localhost:8080/api/reply/myreply", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        setReplies(response.data); // Set the fetched data
+      } catch (error) {
+        
+        console.error("Error fetching replies:", error);
+      }
+    };
+
+    fetchReplies();
+  }, []); // Empty dependency array ensures it runs once on mount
   return (
     <div className='container mt-5'>
       <div className="container  px-4 py-3">
@@ -83,36 +111,37 @@ export default function TaskImpact() {
 
     <div class="container mt-5">
   <h2 class="mb-4" style={{color:"#005A9C"}}>Task List</h2>
-  <table class="table table-bordered table-striped">
-    <thead class="table-dark">
-      <tr>
-        <th scope="col">Task ID</th>
-        <th scope="col">Task Subdomain</th>
-        <th scope="col">Task Name</th>
-        <th scope="col">Author</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>652d91b47f1c3b2f78f8a5f0</td>
-        <td>Frontend</td>
-        <td>Design Login Page</td>
-        <td>John Doe</td>
-      </tr>
-      <tr>
-        <td>652d91b47f1c3b2f78f8a5f55</td>
-        <td>Backend</td>
-        <td>Create API for Users</td>
-        <td>Jane Smith</td>
-      </tr>
-      <tr>
-        <td>652d91b47f1c3b2f78f8a556</td>
-        <td>DevOps</td>
-        <td>Setup CI/CD Pipeline</td>
-        <td>Chris Evans</td>
-      </tr>
-    </tbody>
-  </table>
+  <div className="container mt-5">
+    
+
+      <h2>Replies</h2>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Task Reply Subdomian</th>
+            {/* <th scope="col">Link</th> */}
+            <th scope="col">Name</th>
+            <th scope="col">Reply</th>
+          </tr>
+        </thead>
+        <tbody>
+          {replies.length > 0 ? (
+            replies.map((reply) => (
+              <tr key={reply._id}>
+               <td>{reply.linksd}</td> 
+                {/* <td>{reply.link ? reply.link : "N/A"}</td> */}
+                <td>{reply.name}</td>
+                <td>{reply.reply}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3">No replies found</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
 </div>
 
     </div>

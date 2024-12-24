@@ -17,25 +17,54 @@ export default function Signup() {
   setData({...data,[input.name]: input.value});
  }
 
- const handleSubmit = async (e) => {
+//  const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   try{
+//     const url = "http://localhost:8080/api/users";
+//     const {data: res} = await axios.post(url, data);
+//     navigate("/");
+//     console.log(res.message);
+//   }catch(error){
+//     if(
+//       error.response &&
+//       error.response.status >= 400 &&
+//       error.response.status <= 500
+//     ){
+//       setError(error.response.data.message);
+//     }
+
+//   }
+
+//  };
+
+
+
+const handleSubmit = async (e) => {
   e.preventDefault();
-  try{
+
+  // Check if email ends with @vcet.edu.in
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@vcet\.edu\.in$/;
+  if (!emailRegex.test(data.email)) {
+    setError("Only vcet users are allowed.");
+    return;
+  }
+
+  try {
     const url = "http://localhost:8080/api/users";
-    const {data: res} = await axios.post(url, data);
+    const { data: res } = await axios.post(url, data);
     navigate("/");
     console.log(res.message);
-  }catch(error){
-    if(
+  } catch (error) {
+    if (
       error.response &&
       error.response.status >= 400 &&
       error.response.status <= 500
-    ){
+    ) {
       setError(error.response.data.message);
     }
-
   }
+};
 
- };
 
   return (
     <div className="container mt-5"> 
