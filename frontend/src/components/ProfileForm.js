@@ -153,7 +153,7 @@ export default function ProfileForm() {
               <div className="form-file mb-3">
                 <input
                   type="file"
-                  name="uimg"
+                  name="image"
                   className="form-file-input"
                   id="inputImage"
                   accept="image/*"
