@@ -4,7 +4,9 @@ import './App.css';
 import Login from './components/Authentication/Login/Login';
 import Signup from './components/Authentication/Signup/Signup';
 import Home   from './components/Home/Home';
+
 import Account from './components/Account/Account';
+import ProfileForm from './components/Account/ProfileForm';
 
 import MessagesSend from './components/Messages/MessagesSend';
 import MessagesRecive from './components/Messages/MessagesRecive';
@@ -34,6 +36,7 @@ function App() {
 
 
         <Route path="/account" element={<Account/>} />
+        <Route path="/profileform" element={<ProfileForm/>} />
 
 
         <Route path="/messagessend" element={<MessagesSend/>} />
