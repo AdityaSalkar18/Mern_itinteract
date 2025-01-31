@@ -157,8 +157,65 @@ const registerLimiter = rateLimit({
   message: { message: "Too many registration attempts, please try again later." },
 });
 
+
+// Verify OTP
+
+const otpFile = "otps.csv"; // CSV file containing OTPs
+
+router.post("/verify-otp", (req, res) => {
+  const { otp } = req.body;
+
+  if (!fs.existsSync(otpFile)) {
+    return res.status(400).json({ success: false, message: "OTP file not found." });
+  }
+
+  let isValid = false;
+  fs.createReadStream(otpFile)
+    .pipe(csv())
+    .on("data", (row) => {
+      if (row.otp === otp) {
+        isValid = true;
+      }
+    })
+    .on("end", () => {
+      if (isValid) {
+        res.json({ success: true, message: "OTP Verified" });
+      } else {
+        res.status(400).json({ success: false, message: "Invalid OTP" });
+      }
+    });
+});
+
+
+router.post("/", async (req, res) => {
+	try {
+		const { error } = validate(req.body);
+		if (error)
+			return res.status(400).send({ message: error.details[0].message });
+
+		const user = await User.findOne({ email: req.body.email });
+		if (user)
+			return res
+				.status(409)
+				.send({ message: "User with given email already Exist!" });
+
+		const salt = await bcrypt.genSalt(Number(process.env.SALT));
+		const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+		const new_user = await new User({ ...req.body, password: hashPassword }).save();
+		await Profile.create({ user: new_user._id,email: new_user.email,name:new_user.userName,act:new_user.userAct});
+		
+		
+		
+
+		res.status(201).send({ message: "User created successfully" });
+	} catch (error) {
+		res.status(500).send({ message: "Internal Server Error" });
+	}
+});
+
 // Apply rate limiter to the registration route
-router.post("/", registerLimiter, async (req, res) => {
+router.post("/student/", registerLimiter, async (req, res) => {
   try {
     // Validate the input using Joi schema
     const { error } = validate(req.body);
@@ -195,6 +252,7 @@ router.post("/", registerLimiter, async (req, res) => {
       user: newUser._id,
       email: newUser.email,
       name: newUser.userName,
+      act:  newUser.userAct
     });
 
     res.status(201).send({ message: "User created successfully" });

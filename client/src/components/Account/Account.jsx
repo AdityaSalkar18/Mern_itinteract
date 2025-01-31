@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../Navbar/Navbar'
 
 import { Link } from "react-router-dom";
 
@@ -70,7 +69,7 @@ const Account = () => {
 
     return (
         <>
-            <Navbar />
+           
             <div className="container mx-auto px-4 py-8 mt-5">
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -18,6 +18,8 @@ import ProfileForm from './components/ProfileForm';
 import ProfileView from './components/ProfileView';
 import Login from './components/Authentication/Login';
 import Signup from './components/Authentication/Signup';
+import UserSignup from './components/Authentication/UserSignup.js';
+import UserVerification from './components/Authentication/UserVerification.js'
 import Navbar from './components/Navbar';
 import { SubdomainProvider } from './components/SubdomainContext';
 import { TechProvider } from './components/TechContext';
@@ -35,6 +37,8 @@ function App() {
             
               <Route path="/" exact element={<Login />} />
               <Route path="/signup" exact element={<Signup />} />
+              <Route path="/userSignup" exact element={<UserSignup />} />
+              <Route path="/userVerification" exact element={<UserVerification />} />
 
               {user && <Route path="/home" exact element={<Home />} />}
               <Route path="/account" exact element={<Account />} />
@@ -71,7 +75,7 @@ function LocationWrapper({ children }) {
 
   return (
     <>
-      {location.pathname !== '/' && location.pathname !== '/signup' && <Navbar />}
+      {location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/userSignup' && location.pathname !== '/userVerification' && <Navbar />}
       {children}
     </>
   );

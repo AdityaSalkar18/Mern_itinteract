@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../Navbar/Navbar'
+
 const ProfileForm = () => {
 
     const [formData, setFormData] = useState({
@@ -138,7 +138,7 @@ const ProfileForm = () => {
 
     return (
         <>
-            <Navbar />
+            
             <div className="container mx-auto my-8  px-4">
                 <div className="container px-4 py-3">
                     {error && (

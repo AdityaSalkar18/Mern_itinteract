@@ -1,11 +1,11 @@
 import React from 'react'
-import Navbar from '../Navbar/Navbar'
+
 import {Link} from 'react-router-dom'
 
 const ProfessionalProfile = () => {
   return (
     <>
-       <Navbar/>
+       
        <div className="container mx-auto px-4 my-8" style={{ textAlign: "center" }}>
   <ul
     style={{
@@ -64,6 +64,50 @@ const ProfessionalProfile = () => {
     </li>
   </ul>
 </div>
+
+
+<div className="container mx-auto px-4 py-8">
+  <div className="flex justify-between">
+    {Array(4).fill(0).map((_, index) => (
+      <div key={index} className="w-1/4 mb-4 px-2">
+        <div className="card bg-white shadow-md rounded-lg p-4">
+          <div className="flex flex-col items-center pb-6">
+            <img 
+              className="w-32 h-32 mb-3 rounded-full shadow-lg" 
+              src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg" 
+              alt="User" 
+            />
+            <h5 className="mb-1 text-lg font-medium text-gray-900 dark:text-white">Aditya</h5>
+            <span className="text-sm text-gray-500 dark:text-gray-400">React Developer</span>
+            <div className="flex mt-4">
+              <p className="text-gray-600 text-sm">Bio</p>            
+            </div>
+
+            <p> <Link
+  style={{ textDecoration: 'none' }}
+  className="inline-flex items-center text-blue-600 hover:text-blue-800"
+>
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="16" 
+    height="16" 
+    fill="currentColor" 
+    className="bi bi-chat-right-text mr-2" 
+    viewBox="0 0 16 16"
+  >
+    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
+    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+  </svg>
+  Message
+</Link>
+</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
 
     </>
   )

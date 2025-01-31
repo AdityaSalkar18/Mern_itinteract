@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import Navbar from '../Navbar/Navbar';
+
 import { Link } from 'react-router-dom';
 const MessagesRecive = () => {
   const [notifications, setNotifications] = useState([]);
@@ -40,7 +40,7 @@ const MessagesRecive = () => {
 
   return (
     <>
-      <Navbar />
+     
 
       <div className="contianer mx-auto px-4 py-8">
 
