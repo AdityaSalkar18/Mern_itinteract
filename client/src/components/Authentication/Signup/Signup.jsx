@@ -70,6 +70,7 @@ export default function Signup() {
   const [data, setData] = useState({
     userName: "",
     email: "",
+    userAct: "Student",
     password: "",
   });
 
@@ -78,20 +79,19 @@ export default function Signup() {
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
-  };
-
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Check if email ends with @vcet.edu.in
     const emailRegex = /^[a-zA-Z0-9._%+-]+@vcet\.edu\.in$/;
     if (!emailRegex.test(data.email)) {
-      setError("Only vcet users are allowed.");
+      setError("Only vcet students are allowed.");
       return;
     }
 
     try {
-      const url = "http://localhost:8080/api/users";
+      const url = "http://localhost:8080/api/users/student";
       const { data: res } = await axios.post(url, data);
       navigate("/");
       console.log(res.message);
@@ -163,7 +163,8 @@ export default function Signup() {
           <button type="submit" className="w-full mt-6 py-2 px-4 bg-[#005A9C] text-white rounded-lg hover:bg-[#004080] focus:outline-none focus:ring-4 focus:ring-[#005A9C]">
             Sign Up
           </button>
-
+ 
+          <h3 className="font-semibold text-center"><Link to="/userverification" className=" text-[#005A9C] hover:underline">Register With User Account</Link></h3>
           <div className="flex justify-between items-center mt-4">
             <Link to="/" className="text-sm text-[#005A9C] hover:underline">Already have an account? Log in here.</Link>
           </div>

@@ -4,6 +4,8 @@ import './App.css';
 //Authentication
 import Login from './components/Authentication/Login/Login';
 import Signup from './components/Authentication/Signup/Signup';
+import UserVerfifcation from './components/Authentication/Signup/UserVerfifcation';
+import UserSignup from './components/Authentication/Signup/UserSignup';
 
 //Home
 import Home   from './components/Home/Home';
@@ -46,7 +48,9 @@ function App() {
             <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-
+        <Route path="/userverification" element={<UserVerfifcation />} />
+        <Route path="/usersignup" element={<UserSignup/>} />
+        
 
         <Route path="/home" element={<Home/>} />
 
@@ -98,7 +102,7 @@ function LocationWrapper({ children }) {
 
   return (
     <>
-      {location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/userSignup' && location.pathname !== '/userVerification' && <Navbar />}
+      {location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/usersignup' && location.pathname !== '/userverification' && <Navbar />}
       {children}
     </>
   );
