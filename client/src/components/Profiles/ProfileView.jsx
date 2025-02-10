@@ -1,7 +1,131 @@
-import React from "react"
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { Link } from "react-router-dom";
 
 const ProfileView = () => {
-    return(
+
+    const { id } = useParams();
+    const [userProfile, setUserProfile] = useState({});
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/api/profile/${id}`); // Adjust the API route as per your setup
+                if (response.ok) {
+                    const data = await response.json();
+                    setUserProfile(data);
+                } else {
+                    throw new Error('Failed to fetch profile');
+                }
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                // Handle error (e.g., show error message)
+            }
+        };
+
+        fetchProfile();
+    }, [id]);
+
+
+
+    //MSG
+    const [reciverid, setReciverid] = useState(null);
+    const [recivername, setRecivername] = useState(null);
+    const [formData, setFormData] = useState({
+
+        reciverid: "",
+        recivername: "",
+        msg: ""
+    });
+
+    const [loginuserProfile, setLoginUserProfile] = useState({
+        name: "",
+
+    });
+
+    const [error, setError] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!reciverid) {
+            setError("User is not valid");
+            return;
+        }
+
+        try {
+            const url = "http://localhost:8080/api/notification";
+
+            const payload = {
+                reciverid: reciverid,
+                recivername: recivername,
+                msg: formData.msg
+            }
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Message send:", data);
+            setSuccessMessage("Message send successfully");
+            setError("");
+        } catch (error) {
+            setError(error.message);
+            setSuccessMessage("");
+            console.error("Error sending msg:", error);
+        }
+    };
+
+    const ReciverDetails = (profileid, profilename) => {
+        setReciverid(profileid);
+        setRecivername(profilename)
+
+    }
+
+    useEffect(() => {
+        const getProfile = async () => {
+            try {
+                const url = "http://localhost:8080/api/profile/get-my-profile"; // Update the URL to your backend server running on port 8080
+                const response = await fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setLoginUserProfile(data);
+            } catch (error) {
+                console.error("Error fetching profile:", error);
+            }
+        };
+
+        getProfile();
+    }, []);
+
+
+    return (
         <>
 
 
@@ -171,30 +295,87 @@ const ProfileView = () => {
 
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
                     <div className="card mb-4 bg-white shadow-md rounded-lg">
-                        <div className="p-6">
-                            <p className="mb-5 font-medium">My Activity Status</p>
-                            <div className="mb-5">
-                                <p className="font-medium">Update</p>
-                                <Link to="" className="text-gray-600">My Update</Link>
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                // Set receiver details before submitting
+                                setReciverid(userProfile._id);
+                                setRecivername(userProfile.name);
+
+                                // Call handleSubmit after setting receiver details
+                                handleSubmit(e);
+                            }}
+                        >
+                            {error && (
+                                <div
+                                    className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                                    role="alert"
+                                >
+                                    <span className="font-medium">Error: </span> {error}
+                                </div>
+                            )}
+                            {successMessage && (
+                                <div
+                                    className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                                    role="alert"
+                                >
+                                    <span className="font-medium">Success: </span> {successMessage}
+                                </div>
+                            )}
+                            <div className="p-6">
+                                <p className="mb-5 font-medium flex items-center text-[#005A9C]">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        fill="currentColor"
+                                        className="bi bi-chat-right-text mr-2"
+                                        viewBox="0 0 16 16"
+                                    >
+                                        <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
+                                        <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                                    </svg>
+                                    Message
+                                </p>
+
+                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center mb-2">
+                                    <img
+                                        className="w-10 h-10 rounded-full mr-2"
+                                        src={
+                                            loginuserProfile.imageUrl ||
+                                            "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+                                        }
+                                        alt={loginuserProfile.name || "User"}
+                                    />
+                                    {loginuserProfile.name || "User Name"}
+                                </h3>
+
+                                <label
+                                    htmlFor="message"
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
+                                    Add Your message
+                                </label>
+                                <textarea
+                                    id="message"
+                                    rows="5"
+                                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    name="msg"
+                                    value={formData.msg}
+                                    onChange={handleChange}
+                                    placeholder="Write your message here..."
+                                ></textarea>
+
+                                <button
+                                    type="submit"
+                                    className="float-right text-white bg-[#005A9C] hover:bg-[#004080] focus:ring-4 focus:ring-[#005A9C]/50 font-medium rounded-lg text-sm px-5 py-2 m-2 dark:bg-[#005A9C] dark:hover:bg-[#003366] focus:outline-none dark:focus:ring-[#005A9C]/70"
+                                >
+                                    Send Message
+                                </button>
                             </div>
+                        </form>
 
-                            <div className="mb-5">
-                                <p className="font-medium">Task</p>
-                                <Link to="" className="text-gray-600">My Task</Link>
-                                <Link to="" className="text-gray-600">Task Impact</Link>
-                            </div>
-
-                            <div className="mb-5">
-                                <p className="font-medium">Notification</p>
-                                <Link to="" className="text-gray-600">My Notification</Link>
-
-
-                            </div>
-
-
-                        </div>
                     </div>
 
 

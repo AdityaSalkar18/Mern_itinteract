@@ -42,7 +42,7 @@ const MessagesRecive = () => {
     <>
      
 
-      <div className="contianer mx-auto px-4 py-8">
+      <div className="contianer mx-auto px-4 py-8 mt-28">
 
 <Link to="/messagessend" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Send</Link>
       </div>

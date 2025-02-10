@@ -36,6 +36,15 @@ const Task = () => {
 
 
   //add task
+  const openModal = () => {
+    document.getElementById("crud-modal").classList.remove("hidden");
+  };
+  
+  const toggleModal = () => {
+    const modal = document.getElementById("crud-modal");
+    modal.classList.toggle("hidden");
+  };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,7 +92,7 @@ const Task = () => {
   };
   return (
     <>
-      <div className="container mx-auto px-4 my-8">
+      <div className="container mx-auto px-4 my-8 mt-28">
 
         <div className="container mx-auto px-4 my-8" style={{ textAlign: "center" }}>
           <ul
@@ -143,8 +152,13 @@ const Task = () => {
             </li>
           </ul>
           <div className='mt-8' >
-            <Link href="#" data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="w-full max-w-4xl inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+            {/* <Link  data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="w-full max-w-4xl inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
               <span class="w-full">Add Task, Ask Questions, Share Errors, Add Challenges, Collaborate Projects</span>
+            </Link> */}
+
+
+            <Link onClick={openModal}  class="w-full max-w-4xl inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+             <span class="w-full">Add Task, Ask Questions, Share Errors, Add Challenges, Collaborate Projects</span>
             </Link>
 
           </div>
@@ -226,7 +240,7 @@ const Task = () => {
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                   Add New Task
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                <button  onClick={toggleModal} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" >
                   <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                   </svg>
