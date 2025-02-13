@@ -64,38 +64,44 @@ const MyUpdate = () => {
     const openModal = () => {
         document.getElementById("crud-modal").classList.remove("hidden");
     };
-
+    
     const toggleModal = () => {
         const modal = document.getElementById("crud-modal");
         modal.classList.toggle("hidden");
     };
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
             const url = `http://localhost:8080/api/update/${currentUpdateId}`; // Use the currentUpdateId
             const response = await axios.patch(url, formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    'Content-Type': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                },
             });
-
+    
             if (response.status === 200) {
                 setSuccessMessage("Update successfully saved");
                 setError("");
-
+    
                 // Refresh the list of updates
                 const updatedList = updates.map((update) =>
                     update._id === currentUpdateId ? { ...update, desc: formData.desc } : update
                 );
                 setUpdates(updatedList);
-
+    
+                // Close the modal after 2 seconds
+                setTimeout(() => {
+                    toggleModal(); // Close the modal
+                    setSuccessMessage(""); // Clear the success message
+                }, 2000);
             } else {
                 throw new Error(`Failed to update, status code: ${response.status}`);
             }
@@ -105,15 +111,15 @@ const MyUpdate = () => {
             console.error("Error updating profile:", error);
         }
     };
-
+    
     useEffect(() => {
         if (alert.message) {
             setTimeout(() => {
-                setAlert({ message: '', type: '' });
+                setAlert({ message: "", type: "" });
             }, 2000);
         }
     }, [alert]);
-
+    
     return (
         <div className="container mx-auto px-4 my-8 mt-28">
 
@@ -121,8 +127,8 @@ const MyUpdate = () => {
                 {alert.message && (
                     <div
                         className={`p-4 mb-4 text-sm rounded-lg ${alert.type === 'success'
-                                ? 'text-green-800 bg-green-50 dark:bg-gray-800 dark:text-green-400'
-                                : 'text-red-800 bg-red-50 dark:bg-gray-800 dark:text-red-400'
+                            ? 'text-green-800 bg-green-50 dark:bg-gray-800 dark:text-green-400'
+                            : 'text-red-800 bg-red-50 dark:bg-gray-800 dark:text-red-400'
                             }`}
                         role="alert"
                     >
@@ -171,6 +177,7 @@ const MyUpdate = () => {
                                             <Link
                                                 to=""
                                                 className="text-end mx-2"
+                                                style={{ color: "#005A9C" }}
                                                 onClick={() => {
                                                     setCurrentUpdateId(update._id);
                                                     setFormData({ desc: update.desc });
@@ -180,10 +187,16 @@ const MyUpdate = () => {
                                                 Update
                                             </Link>
 
-                                            <Link to="" className="text-end mx-2"
-                                                onClick={() => handleDelete(update._id)}>
+
+                                            <Link
+                                                to=""
+                                                className="text-end mx-2"
+                                                style={{ color: "#005A9C" }}
+                                                onClick={() => handleDelete(update._id)}
+                                            >
                                                 Delete
                                             </Link>
+
                                         </div>
                                     </div>
 
@@ -208,49 +221,89 @@ const MyUpdate = () => {
 
 
 
-            <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-
-
-                    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+            <div
+                id="crud-modal"
+                tabIndex="-1"
+                aria-hidden="true"
+                className="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden w-full h-screen bg-black bg-opacity-50"
+            >
+                <div className="relative w-full max-w-md max-h-full p-4">
+                    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                         {error && (
-                            <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                            <div
+                                className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                                role="alert"
+                            >
                                 <span className="font-medium">Error: </span> {error}
                             </div>
                         )}
                         {successMessage && (
-                            <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                            <div
+                                className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                                role="alert"
+                            >
                                 <span className="font-medium">Success: </span> {successMessage}
                             </div>
                         )}
 
-
-                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                                 Edit Update
                             </h3>
-                            <button onClick={toggleModal} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" >
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            <button
+                                onClick={toggleModal}
+                                type="button"
+                                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            >
+                                <svg
+                                    className="w-3 h-3"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 14 14"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                                    />
                                 </svg>
-                                <span class="sr-only">Close modal</span>
+                                <span className="sr-only">Close modal</span>
                             </button>
                         </div>
-                        <form class="p-4 md:p-5" onSubmit={handleSubmit}>
-
-                            <div class="col-span-2 mb-2">
-                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Update Description</label>
-                                <textarea id="description" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write update description here" name="desc" value={formData.desc} onChange={handleChange}></textarea>
+                        <form className="p-4 md:p-5" onSubmit={handleSubmit}>
+                            <div className="col-span-2 mb-2">
+                                <label
+                                    htmlFor="description"
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
+                                    Update Description
+                                </label>
+                                <textarea
+                                    id="description"
+                                    rows="3"
+                                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Write update description here"
+                                    name="desc"
+                                    value={formData.desc}
+                                    onChange={handleChange}
+                                ></textarea>
                             </div>
-
-                            <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-
-                                Update
-                            </button>
+                            <div className="flex justify-end">
+                                <button
+                                    type="submit"
+                                    className="text-white inline-flex items-center bg-[#005A9C] hover:bg-[#00407A] focus:ring-4 focus:outline-none focus:ring-[#00407A] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                >
+                                    Update
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
+
 
         </div>
 

@@ -224,64 +224,71 @@ const ProfessionalProfile = () => {
 
 
       <div className="container mx-auto px-4 py-8 ">
-        <div className="flex justify-between">
-          {Array.isArray(profiles) && profiles.length > 0 ? (
-            filteredProfiles.map((profile) => (
-              <div key={profile._id} className="w-1/4 mb-4 px-2">
-                <Link to={`/profileview/${profile._id}`} >
-                  <div className="card bg-white shadow-md rounded-lg p-4">
-                    <div className="flex flex-col items-center pb-6">
-                      <img
-                        className="w-32 h-32 mb-3 rounded-full shadow-lg"
-                        src={profile.uimg ? profile.uimg : "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"}
-                        alt="User"
-                      />
-                      <h5 className="mb-1 text-lg font-medium text-gray-900 dark:text-white">{profile.name}</h5>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">{profile.tech ? profile.tech : "tech"}</span>
-                      <div className="flex mt-4">
-                        <p className="text-gray-600 text-sm">{profile.bio ? profile.bio : "bio"}</p>
-                      </div>
-
-                      <p>
-                        <Link
-                          style={{
-                            textDecoration: 'none',
-                            color: '#005A9C', // Your custom color
-                          }}
-                          onClick={() => {
-                            openModal();
-                            handleOpenMessageModel(profile._id, profile.name);
-                          }}
-                          className="inline-flex items-center hover:text-blue-800" // Adjust hover color as needed
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-chat-right-text mr-2"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
-                            <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                          </svg>
-                          Message
-                        </Link>
-
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+  {Array.isArray(profiles) && profiles.length > 0 ? (
+    filteredProfiles.map((profile) => (
+      <div key={profile._id} className="mb-4">
+        <Link to={`/profileview/${profile._id}`}>
+          <div className="card bg-white shadow-md rounded-lg p-4">
+            <div className="flex flex-col items-center pb-6">
+              <img
+                className="w-32 h-32 mb-3 rounded-full shadow-lg"
+                src={
+                  profile.uimg
+                    ? profile.uimg
+                    : "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+                }
+                alt="User"
+              />
+              <h5 className="mb-1 text-lg font-medium text-gray-900 dark:text-white">
+                {profile.name}
+              </h5>
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                {profile.tech ? profile.tech : "tech"}
+              </span>
+              <div className="flex mt-4">
+                <p className="text-gray-600 text-sm">
+                  {profile.bio ? profile.bio : "bio"}
+                </p>
               </div>
+              <p>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "#005A9C", // Your custom color
+                  }}
+                  onClick={() => {
+                    openModal();
+                    handleOpenMessageModel(profile._id, profile.name);
+                  }}
+                  className="inline-flex items-center hover:text-blue-800"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    className="bi bi-chat-right-text mr-2"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
+                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                  </svg>
+                  Message
+                </Link>
+              </p>
+            </div>
+          </div>
+        </Link>
+      </div>
+    ))
+  ) : (
+    <p style={{ color: "#005A9C" }}>
+      No User profiles found for this subdomain.
+    </p>
+  )}
+</div>
 
-
-            ))
-          ) : (
-            <p style={{ color: "#005A9C" }}>No Student profiles found for these Subdomain.</p>
-          )}
-
-        </div>
 
 
 
