@@ -242,18 +242,18 @@ const Account = () => {
                             <p className="mb-5 font-medium">My Activity Status</p>
                             <div className="mb-5">
                                 <p className="font-medium">Update</p>
-                                <Link to="" className="text-gray-600">My Update</Link>
+                                <Link to="/myupdates" className="text-gray-600">My Update</Link>
                             </div>
 
                             <div className="mb-5">
                                 <p className="font-medium">Task</p>
-                                <Link to="" className="text-gray-600">My Task</Link>
-                                <Link to="" className="text-gray-600">Task Impact</Link>
+                                <Link to="/mytasks" className="text-gray-600 mx-2">My Task</Link>
+                                <Link to="/taskimpact" className="text-gray-600 mx-2">Task Impact</Link>
                             </div>
 
                             <div className="mb-5">
                                 <p className="font-medium">Notification</p>
-                                <Link to="" className="text-gray-600">My Notification</Link>
+                                <Link to="/messagesrecive" className="text-gray-600">My Notification</Link>
 
 
                             </div>

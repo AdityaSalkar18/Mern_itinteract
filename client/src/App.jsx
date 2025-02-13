@@ -72,7 +72,7 @@ function App() {
         <Route path="/tasks" element={<Task/>} />
         {/* <Route path="/taskview" element={<TaskView/>} /> */}
         <Route path="/taskview/:id" exact element={<TaskView />} />
-        <Route path="/mytask" element={<MyTask/>} />
+        <Route path="/mytasks" element={<MyTask/>} />
         <Route path="/taskimpact" element={<TaskImpact/>} />
 
 

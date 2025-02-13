@@ -45,7 +45,7 @@ const Home = () => {
 
 
 <motion.section
-      className="bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply"
+      className="bg-white dark:bg-gray-900 bg-[url('https://as1.ftcdn.net/v2/jpg/08/84/26/92/1000_F_884269203_mNDqsfxvN6dP65AE2eDEitdGoV6qEbM1.jpg')]"
       initial={{ scale: 1.1, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
@@ -57,7 +57,7 @@ const Home = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.h1
-          className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl"
+          className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-black md:text-5xl lg:text-6xl"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
@@ -65,7 +65,7 @@ const Home = () => {
           ITInteract
         </motion.h1>
         <motion.p
-          className="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48"
+          className="mb-8 text-lg font-normal text-gray-800 lg:text-xl sm:px-16 lg:px-48"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -103,7 +103,7 @@ const Home = () => {
           </a>
           <a
             href="#"
-            className="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
+            className="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-black rounded-lg border border-gre hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
           >
             Learn more
           </a>
