@@ -53,21 +53,25 @@ const ProfileView = () => {
 
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e, id, name) => {
         e.preventDefault();
-        if (!reciverid) {
+        if (!id) {
             setError("User is not valid");
+    
+            // Clear error after 2 seconds
+            setTimeout(() => setError(""), 2000);
             return;
         }
-
+    
         try {
             const url = "http://localhost:8080/api/notification";
-
+    
             const payload = {
-                reciverid: reciverid,
-                recivername: recivername,
-                msg: formData.msg
-            }
+                reciverid: id,
+                recivername: name,
+                msg: formData.msg,
+            };
+    
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
@@ -76,27 +80,31 @@ const ProfileView = () => {
                 },
                 body: JSON.stringify(payload),
             });
-
+    
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-
+    
             const data = await response.json();
-            console.log("Message send:", data);
-            setSuccessMessage("Message send successfully");
+            console.log("Message sent:", data);
+    
+            setSuccessMessage("Message sent successfully");
             setError("");
+    
+            // Clear success message after 2 seconds
+            setTimeout(() => setSuccessMessage(""), 2000);
         } catch (error) {
             setError(error.message);
             setSuccessMessage("");
-            console.error("Error sending msg:", error);
+    
+            // Clear error after 2 seconds
+            setTimeout(() => setError(""), 2000);
+            console.error("Error sending message:", error);
         }
     };
+    
 
-    const ReciverDetails = (profileid, profilename) => {
-        setReciverid(profileid);
-        setRecivername(profilename)
 
-    }
 
     useEffect(() => {
         const getProfile = async () => {
@@ -129,18 +137,13 @@ const ProfileView = () => {
         <>
 
 
-            <div className="container mx-auto px-4 py-8 mt-5">
+            <div className="container mx-auto px-4 py-8 mt-10">
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                     <div className="card mb-4 bg-white shadow-md rounded-lg col-span-1">
                         <div className="flex justify-end px-4 pt-4">
-                            <Link to="/profileform">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#005A9C" className="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                </svg>
-                            </Link>
+                          
                         </div>
                         <div className="flex flex-col items-center pb-10">
                             <img className="w-44 h-44 mb-3 rounded-full shadow-lg" src={userProfile.uimg ? userProfile.uimg : "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"} alt="Bonnie image" />
@@ -296,85 +299,80 @@ const ProfileView = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="card mb-4 bg-white shadow-md rounded-lg">
-                        <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                // Set receiver details before submitting
-                                setReciverid(userProfile._id);
-                                setRecivername(userProfile.name);
+                    <form
+    onSubmit={(e) => {
+        handleSubmit(e, userProfile._id, userProfile.name);
+    }}
+>
+    {error && (
+        <div
+            className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert"
+        >
+            <span className="font-medium">Error: </span> {error}
+        </div>
+    )}
+    {successMessage && (
+        <div
+            className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+            role="alert"
+        >
+            <span className="font-medium">Success: </span> {successMessage}
+        </div>
+    )}
+    <div className="p-6">
+        <p className="mb-5 font-medium flex items-center text-[#005A9C]">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-chat-right-text mr-2"
+                viewBox="0 0 16 16"
+            >
+                <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
+                <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+            </svg>
+            Message
+        </p>
 
-                                // Call handleSubmit after setting receiver details
-                                handleSubmit(e);
-                            }}
-                        >
-                            {error && (
-                                <div
-                                    className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                                    role="alert"
-                                >
-                                    <span className="font-medium">Error: </span> {error}
-                                </div>
-                            )}
-                            {successMessage && (
-                                <div
-                                    className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-                                    role="alert"
-                                >
-                                    <span className="font-medium">Success: </span> {successMessage}
-                                </div>
-                            )}
-                            <div className="p-6">
-                                <p className="mb-5 font-medium flex items-center text-[#005A9C]">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="16"
-                                        height="16"
-                                        fill="currentColor"
-                                        className="bi bi-chat-right-text mr-2"
-                                        viewBox="0 0 16 16"
-                                    >
-                                        <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
-                                        <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                                    </svg>
-                                    Message
-                                </p>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center mb-2">
+            <img
+                className="w-10 h-10 rounded-full mr-2"
+                src={
+                    loginuserProfile.imageUrl ||
+                    "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+                }
+                alt={loginuserProfile.name || "User"}
+            />
+            {loginuserProfile.name || "User Name"}
+        </h3>
 
-                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center mb-2">
-                                    <img
-                                        className="w-10 h-10 rounded-full mr-2"
-                                        src={
-                                            loginuserProfile.imageUrl ||
-                                            "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
-                                        }
-                                        alt={loginuserProfile.name || "User"}
-                                    />
-                                    {loginuserProfile.name || "User Name"}
-                                </h3>
+        <label
+            htmlFor="message"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+            Add Your message
+        </label>
+        <textarea
+            id="message"
+            rows="5"
+            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="msg"
+            value={formData.msg}
+            onChange={handleChange}
+            placeholder="Write your message here..."
+        ></textarea>
 
-                                <label
-                                    htmlFor="message"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Add Your message
-                                </label>
-                                <textarea
-                                    id="message"
-                                    rows="5"
-                                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    name="msg"
-                                    value={formData.msg}
-                                    onChange={handleChange}
-                                    placeholder="Write your message here..."
-                                ></textarea>
+        <button
+            type="submit"
+            className="float-right text-white bg-[#005A9C] hover:bg-[#004080] focus:ring-4 focus:ring-[#005A9C]/50 font-medium rounded-lg text-sm px-5 py-2 m-2 dark:bg-[#005A9C] dark:hover:bg-[#003366] focus:outline-none dark:focus:ring-[#005A9C]/70"
+        >
+            Send
+        </button>
+    </div>
+</form>
 
-                                <button
-                                    type="submit"
-                                    className="float-right text-white bg-[#005A9C] hover:bg-[#004080] focus:ring-4 focus:ring-[#005A9C]/50 font-medium rounded-lg text-sm px-5 py-2 m-2 dark:bg-[#005A9C] dark:hover:bg-[#003366] focus:outline-none dark:focus:ring-[#005A9C]/70"
-                                >
-                                    Send Message
-                                </button>
-                            </div>
-                        </form>
 
                     </div>
 

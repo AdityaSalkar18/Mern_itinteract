@@ -45,18 +45,18 @@ const Task = () => {
     modal.classList.toggle("hidden");
   };
   
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
       const taskFormData = { ...formData, sd: subdomain };
       const url = "http://localhost:8080/api/task";
-
+  
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -65,31 +65,36 @@ const Task = () => {
         },
         body: JSON.stringify(taskFormData),
       });
-
+  
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+  
       const data = await response.json();
       console.log("Task share:", data);
       setSuccessMessage("Task shared successfully");
       setError("");
-
-
+  
+      // Automatically close alert and modal after 2 seconds
       setTimeout(() => {
         setSuccessMessage("");
-
-        const modalElement = document.getElementById('crud-modal');
-        const modal = window.bootstrap.Modal.getInstance(modalElement);
-        modal.hide();
+  
+        // Close modal after successful message submission
+        const modal = document.getElementById("crud-modal");
+        modal.classList.add("hidden"); // Add the "hidden" class to close the modal
       }, 2000);
-
     } catch (error) {
       setError(error.message);
       setSuccessMessage("");
-      console.log("Error sharing task:", error);
+      console.error("Error sharing task:", error);
+  
+      // Automatically close alert after 2 seconds
+      setTimeout(() => {
+        setError("");
+      }, 2000);
     }
   };
+  
   return (
     <>
       <div className="container mx-auto px-4 my-8 mt-28">
@@ -168,7 +173,7 @@ const Task = () => {
         <div className="container mx-auto px-4 my-8 flex flex-col items-center justify-center">
           {Array.isArray(tasks) && tasks.length > 0 ? (
             filteredTasks.map((task) => (
-              <div className="block w-full max-w-4xl p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <div className="block w-full max-w-4xl p-6 mb-3 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <Link to={`/taskview/${task._id}`}>
                   <div>
                     <div className="relative w-full">
@@ -223,67 +228,148 @@ const Task = () => {
 
         
 
-        <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-          <div class="relative p-4 w-full max-w-md max-h-full">
-            <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-              {error && (
-                <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                  <span className="font-medium">Error: </span> {error}
-                </div>
-              )}
-              {successMessage && (
-                <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                  <span className="font-medium">Success: </span> {successMessage}
-                </div>
-              )}
-              <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                  Add New Task
-                </h3>
-                <button  onClick={toggleModal} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" >
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                  </svg>
-                  <span class="sr-only">Close modal</span>
-                </button>
-              </div>
-              <form class="p-4 md:p-5" onSubmit={handleSubmit}>
-                <div >
-                  <div class="col-span-2">
-                    <label for="tt" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Task Tile</label>
-                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" type="text" name="tt" value={formData.tt} onChange={handleChange} placeholder="Add Task Title" />
-                  </div>
-
-                  <div class="col-span-2 ">
-                    <label for="tc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Task Complexity</label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" name="tc" value={formData.tc} onChange={handleChange}>
-                      <option value="Default">Default</option>
-                      <option value="Easy">Easy</option>
-                      <option value="Medium">Medium</option>
-                      <option value="High">High</option>
-
-                    </select>
-                  </div>
-
-                  <div class="col-span-2">
-                    <label for="tr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Task Requirement</label>
-                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" type="text" name="tr" value={formData.tr} onChange={handleChange} />
-                  </div>
-
-
-                  <div class="col-span-2 mb-2">
-                    <label for="tdesc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task Description</label>
-                    <textarea rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here" name="tdesc" value={formData.tdesc} onChange={handleChange}></textarea>
-                  </div>
-                </div>
-                <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                  Add
-                </button>
-              </form>
-            </div>
-          </div>
+        <div
+  id="crud-modal"
+  tabIndex="-1"
+  aria-hidden="true"
+  className="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden w-full h-screen bg-black bg-opacity-50"
+>
+  <div className="relative w-full max-w-md max-h-full p-4">
+    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      {error && (
+        <div
+          className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert"
+        >
+          <span className="font-medium">Error: </span> {error}
         </div>
+      )}
+      {successMessage && (
+        <div
+          className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+          role="alert"
+        >
+          <span className="font-medium">Success: </span> {successMessage}
+        </div>
+      )}
+
+      <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          Add New Task
+        </h3>
+        <button
+          onClick={toggleModal}
+          type="button"
+          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+        >
+          <svg
+            className="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+          <span className="sr-only">Close modal</span>
+        </button>
+      </div>
+
+      <form className="p-4 md:p-5" onSubmit={handleSubmit}>
+        <div className="col-span-2 mb-4">
+          <label
+            htmlFor="tt"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Add Task Title
+          </label>
+          <input
+            id="tt"
+            name="tt"
+            type="text"
+            value={formData.tt}
+            onChange={handleChange}
+            placeholder="Add Task Title"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          />
+        </div>
+
+        <div className="col-span-2 mb-4">
+          <label
+            htmlFor="tc"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Select Task Complexity
+          </label>
+          <select
+            id="tc"
+            name="tc"
+            value={formData.tc}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          >
+            <option value="Default">Default</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        <div className="col-span-2 mb-4">
+          <label
+            htmlFor="tr"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Add Task Requirement
+          </label>
+          <input
+            id="tr"
+            name="tr"
+            type="text"
+            value={formData.tr}
+            onChange={handleChange}
+            placeholder="Add Task Requirement"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          />
+        </div>
+
+        <div className="col-span-2 mb-4">
+          <label
+            htmlFor="tdesc"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Task Description
+          </label>
+          <textarea
+            id="tdesc"
+            name="tdesc"
+            rows="3"
+            value={formData.tdesc}
+            onChange={handleChange}
+            placeholder="Write task description here"
+            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          ></textarea>
+        </div>
+
+        <div className="flex justify-end">
+        <button
+            type="submit"
+            className="text-white inline-flex items-center bg-[#005A9C] hover:bg-[#00407A] focus:ring-4 focus:outline-none focus:ring-[#00407A] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 
 

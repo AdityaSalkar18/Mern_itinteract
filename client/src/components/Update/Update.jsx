@@ -23,18 +23,16 @@ const Update = () => {
   const openModal = () => {
     document.getElementById("crud-modal").classList.remove("hidden");
   };
-  
+
   const toggleModal = () => {
     const modal = document.getElementById("crud-modal");
     modal.classList.toggle("hidden");
   };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,16 +59,14 @@ const Update = () => {
       setSuccessMessage("Update shared successfully");
       setError("");
 
-      // Automatically close alert after 2 seconds
+      // Automatically close alert and modal after 2 seconds
       setTimeout(() => {
         setSuccessMessage("");
 
         // Close modal after successful message submission
-        const modal = document.getElementById('crud-modal');
-        const modalInstance = window.bootstrap.Modal.getInstance(modal);
-        if (modalInstance) modalInstance.hide();
+        const modal = document.getElementById("crud-modal");
+        modal.classList.add("hidden"); // Add the "hidden" class to close the modal
       }, 2000);
-
     } catch (error) {
       setError(error.message);
       setSuccessMessage("");
@@ -107,16 +103,16 @@ const Update = () => {
         <div
           className="container mx-auto px-4 my-8"
           style={{
-            textAlign: "center", // Center align text
+            textAlign: "center",
           }}
         >
           <ul
 
             style={{
-              listStyle: "none", // Remove default bullet points
+              listStyle: "none",
               display: "flex",
-              justifyContent: "center", // Center horizontally
-              gap: "20px", // Space between items
+              justifyContent: "center",
+              gap: "20px",
               padding: 0,
               margin: 0,
             }}
@@ -125,12 +121,12 @@ const Update = () => {
               <Link
                 to="/tasks"
                 style={{
-                  color: "#005A9C", // Text color
-                  textDecoration: "none", // Remove underline
+                  color: "#005A9C",
+                  textDecoration: "none",
                   fontSize: "16px",
                   padding: "10px 20px",
                   borderRadius: "5px",
-                  backgroundColor: "#F5F5F5", // Light grey background for buttons
+                  backgroundColor: "#F5F5F5",
                 }}
               >
                 Task
@@ -173,7 +169,7 @@ const Update = () => {
               <span class="w-full">Add Update, Ask questions, Share errors, Add Job Post, Upload Video Lecture</span>
             </a> */}
 
-            <Link onClick={openModal}  class="w-full max-w-4xl inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+            <Link onClick={openModal} class="w-full max-w-4xl inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
               <span class="w-full">Add Update, Ask questions, Share errors, Add Job Post, Upload Video Lecture</span>
             </Link>
 
@@ -222,50 +218,89 @@ const Update = () => {
 
 
 
-        <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-          <div class="relative p-4 w-full max-w-md max-h-full">
 
-
-            <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+        <div
+          id="crud-modal"
+          tabIndex="-1"
+          aria-hidden="true"
+          className="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden w-full h-screen bg-black bg-opacity-50"
+        >
+          <div className="relative w-full max-w-md max-h-full p-4">
+            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               {error && (
-                <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <div
+                  className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                  role="alert"
+                >
                   <span className="font-medium">Error: </span> {error}
                 </div>
               )}
               {successMessage && (
-                <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <div
+                  className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                  role="alert"
+                >
                   <span className="font-medium">Success: </span> {successMessage}
                 </div>
               )}
 
-
-              <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+              <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   Add New Update
                 </h3>
-                <button onClick={toggleModal} type="button"  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" >
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                <button
+                  onClick={toggleModal}
+                  type="button"
+                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  <svg
+                    className="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 14"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                    />
                   </svg>
-                  <span class="sr-only">Close modal</span>
+                  <span className="sr-only">Close modal</span>
                 </button>
               </div>
-              <form class="p-4 md:p-5" onSubmit={handleSubmit}>
-
-                <div class="col-span-2 mb-2">
-                  <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Update Description</label>
-                  <textarea id="description" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write update description here" name="desc" value={formData.desc} onChange={handleChange}></textarea>
+              <form className="p-4 md:p-5" onSubmit={handleSubmit}>
+                <div className="col-span-2 mb-2">
+                  <label
+                    htmlFor="description"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Update Description
+                  </label>
+                  <textarea
+                    id="description"
+                    rows="3"
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Write update description here"
+                    name="desc"
+                    value={formData.desc}
+                    onChange={handleChange}
+                  ></textarea>
                 </div>
-
-                <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-
-                  Add
-                </button>
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    className="text-white inline-flex items-center bg-[#005A9C] hover:bg-[#00407A] focus:ring-4 focus:outline-none focus:ring-[#00407A] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  >
+                    Add
+                  </button>
+                </div>
               </form>
             </div>
           </div>
         </div>
-
 
 
 

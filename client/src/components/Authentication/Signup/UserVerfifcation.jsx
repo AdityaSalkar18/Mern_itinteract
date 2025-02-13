@@ -62,9 +62,15 @@ const UserVerfifcation = () => {
               {errorMessage && <div className="text-red-600 text-sm">{errorMessage}</div>}
               {successMessage &&  <div className="text-green-600 text-sm">{successMessage}</div>}
     
-              <button type="submit" className=" mt-6 py-2 px-4 bg-[#005A9C] text-white rounded-lg hover:bg-[#004080] focus:outline-none focus:ring-4 focus:ring-[#005A9C]">
-              Verify
-              </button>
+              <div className="flex justify-end">
+  <button
+    type="submit"
+    className=" py-2 px-4 bg-[#005A9C] text-white rounded-lg hover:bg-[#004080] focus:outline-none focus:ring-4 focus:ring-[#005A9C]"
+  >
+    Verify
+  </button>
+</div>
+
      
               <h3 className="font-semibold text-center"><Link to="https://forms.gle/J8yhmRvTBQrBb6Wt8" className=" text-[#005A9C] hover:underline">Try Another Way </Link></h3>
 

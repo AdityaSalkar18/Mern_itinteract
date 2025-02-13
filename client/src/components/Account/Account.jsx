@@ -69,8 +69,8 @@ const Account = () => {
 
     return (
         <>
-           
-            <div className="container mx-auto px-4 py-8 mt-5">
+
+            <div className="container mx-auto px-4 py-8 mt-10">
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
@@ -134,7 +134,7 @@ const Account = () => {
                                         </svg>
                                         <span>
                                             <Link
-                                                className="mb-0 text-gray-600"
+                                                className="mb-0 text-[#005A9C] hover:underline"
                                                 style={{ textDecoration: "none" }}
                                                 to={userProfile.github ? userProfile.github : "https://github.com/username"}
                                                 target="_blank"
@@ -142,6 +142,7 @@ const Account = () => {
                                             >
                                                 {userProfile.github ? userProfile.github : "github.com/username"}
                                             </Link>
+
                                         </span>
 
                                     </div>
@@ -155,14 +156,15 @@ const Account = () => {
 
                                     <span>
                                         <Link
-                                            className="mb-0 text-gray-600"
+                                            className="mb-0 text-[#005A9C] hover:underline"
                                             style={{ textDecoration: "none" }}
-                                            to={userProfile.linkedin ? userProfile.linkedin : "usernamelinkedin.com"}
+                                            to={userProfile.linkedin ? userProfile.linkedin : "https://usernamelinkedin.com"}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
                                             {userProfile.linkedin ? userProfile.linkedin : "usernamelinkedin.com"}
                                         </Link>
+
                                     </span>
 
                                 </li>
@@ -176,12 +178,13 @@ const Account = () => {
 
                                     <span>
                                         <Link
-                                            className="mb-0 text-gray-600"
+                                            className="mb-0 text-[#005A9C] hover:underline"
                                             style={{ textDecoration: "none" }}
                                             to={userProfile.cmail ? `mailto:${userProfile.cmail}` : "mailto:user@example.com"}
                                         >
                                             {userProfile.cmail ? userProfile.cmail : "user@example.com"}
                                         </Link>
+
                                     </span>
 
                                 </li>
@@ -195,12 +198,13 @@ const Account = () => {
 
                                     <span>
                                         <Link
-                                            className="mb-0 text-gray-600"
+                                            className="mb-0 text-[#005A9C] hover:underline"
                                             style={{ textDecoration: "none" }}
                                             to={userProfile.cphone ? `tel:${userProfile.cphone}` : "tel:+123456789"}
                                         >
-                                            {userProfile.cphone ? userProfile.cphone : "123456789"}
+                                            {userProfile.cphone ? userProfile.cphone : "+123456789"}
                                         </Link>
+
                                     </span>
 
                                 </li>
@@ -214,7 +218,7 @@ const Account = () => {
 
                                     <span>
                                         <Link
-                                            className="mb-0 text-gray-600"
+                                            className="mb-0 text-[#005A9C] hover:underline"
                                             style={{ textDecoration: "none" }}
                                             to={userProfile.link ? userProfile.link : "https://www.example.com"}
                                             target="_blank"
@@ -222,6 +226,7 @@ const Account = () => {
                                         >
                                             {userProfile.link ? userProfile.link : "https://www.example.com"}
                                         </Link>
+
                                     </span>
 
                                 </li>
@@ -242,18 +247,29 @@ const Account = () => {
                             <p className="mb-5 font-medium">My Activity Status</p>
                             <div className="mb-5">
                                 <p className="font-medium">Update</p>
-                                <Link to="/myupdates" className="text-gray-600">My Update</Link>
+                                <Link to="/myupdates" className="text-[#005A9C] hover:underline">
+                                    My Update
+                                </Link>
+
                             </div>
 
                             <div className="mb-5">
                                 <p className="font-medium">Task</p>
-                                <Link to="/mytasks" className="text-gray-600 mx-2">My Task</Link>
-                                <Link to="/taskimpact" className="text-gray-600 mx-2">Task Impact</Link>
+                                <Link to="/mytasks" className="text-[#005A9C] hover:underline ">
+                                    My Task
+                                </Link>
+                                <Link to="/taskimpact" className="text-[#005A9C] hover:underline mx-2">
+                                    Task Impact
+                                </Link>
+
                             </div>
 
                             <div className="mb-5">
                                 <p className="font-medium">Notification</p>
-                                <Link to="/messagesrecive" className="text-gray-600">My Notification</Link>
+                                <Link to="/messagesrecive" className="text-[#005A9C] hover:underline">
+                                    My Notification
+                                </Link>
+
 
 
                             </div>

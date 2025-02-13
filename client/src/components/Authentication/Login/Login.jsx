@@ -63,6 +63,8 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import networkLogo from './network.png';
+import { PiStudentBold } from "react-icons/pi";
+import { PiUserBold } from "react-icons/pi";
 
 export default function Login() {
   const [data, setData] = useState({
@@ -95,6 +97,7 @@ export default function Login() {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-semibold text-center text-[#005A9C] mb-4">
           <img src={networkLogo} alt="" width="55" height="55" className="inline mr-2" />
@@ -189,9 +192,12 @@ export default function Login() {
                   <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
 
                     
-                      <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Register With Student Account</h5>
+                      <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"><PiStudentBold />Register With Student Account</h5>
                     
-                    <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
+                    <p class="mb-3  font-normal text-gray-500 dark:text-gray-400">VCET students, register with your student account using your VCET email ID to get started! 
+                    
+                    
+                    </p>
                     
                   </div>
                  </Link>
@@ -201,9 +207,9 @@ export default function Login() {
                   <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
 
                     
-                      <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Register With User Account</h5>
+                      <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"><PiUserBold />Register With User Account</h5>
              
-                    <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
+                    <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">VCET alumni or users, register with your account using your personal email ID to join us!</p>
                     
                   </div>
                   </Link>

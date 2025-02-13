@@ -1,6 +1,7 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { motion } from "framer-motion";
-
+import networkLogo from './network.png';
 
 const Home = () => {
 
@@ -45,7 +46,8 @@ const Home = () => {
 
 
 <motion.section
-      className="bg-white dark:bg-gray-900 bg-[url('https://as1.ftcdn.net/v2/jpg/08/84/26/92/1000_F_884269203_mNDqsfxvN6dP65AE2eDEitdGoV6qEbM1.jpg')]"
+    className="bg-white dark:bg-gray-900 bg-[url('https://as1.ftcdn.net/v2/jpg/08/84/26/92/1000_F_884269203_mNDqsfxvN6dP65AE2eDEitdGoV6qEbM1.jpg')] bg-no-repeat bg-cover bg-center"
+
       initial={{ scale: 1.1, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
@@ -80,33 +82,20 @@ const Home = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
         >
-          <a
-            href="#"
-            className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
-          >
-            Get started
-            <svg
-              className="w-3.5 h-3.5 ms-2 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 10"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 5h12m0 0L9 1m4 4L9 9"
-              />
-            </svg>
-          </a>
-          <a
-            href="#"
+          <Link 
+  to="/profileform"
+  className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-[#005A9C] hover:bg-[#004880] focus:ring-4 focus:ring-[#004880] dark:focus:ring-[#003E6B]"
+>
+  Build Your Profile
+</Link>
+
+
+          {/* <Link
+            to=""
             className="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-black rounded-lg border border-gre hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
           >
             Learn more
-          </a>
+          </Link> */}
         </motion.div>
       </motion.div>
     </motion.section>
@@ -435,10 +424,10 @@ const Home = () => {
         <footer class="bg-white rounded-lg shadow-sm dark:bg-gray-900 w-full">
     <div class="w-full mx-auto p-4 md:py-8">
         <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-            </a>
+            <Link to="#" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+            <img src={networkLogo} class="h-8" alt="ITInteract" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ITInteract</span>
+            </Link>
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                 <li>
                     <a href="#" class="hover:underline me-4 md:me-6">About</a>
@@ -455,7 +444,7 @@ const Home = () => {
             </ul>
         </div>
         <hr class="my-6 border-gray-200 dark:border-gray-700 lg:my-8" />
-        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
+        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="https://flowbite.com/" class="hover:underline">ITInteract</a>. All Rights Reserved.</span>
     </div>
 </footer>
 

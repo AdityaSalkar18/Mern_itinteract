@@ -106,17 +106,16 @@ const TaskView = () => {
   const openModal = () => {
     document.getElementById("crud-modal").classList.remove("hidden");
   };
-  
+
   const toggleModal = () => {
     const modal = document.getElementById("crud-modal");
     modal.classList.toggle("hidden");
   };
 
   const handleReplyChange = (linkId, linkUId, linkSd, value) => {
-    // Dynamically updating the reply for the specific link and its upid
     setReplies((prevReplies) => ({
       ...prevReplies,
-      [`${linkId}_${linkUId}_${linkSd}`]: value, // Use a unique key combining linkId and linkUId
+      [`${linkId}_${linkUId}_${linkSd}`]: value, // Use a unique key combining linkId, linkUId, and linkSd
     }));
   };
 
@@ -129,7 +128,6 @@ const TaskView = () => {
     try {
       const url = "http://localhost:8080/api/reply";
 
-      // The key is now `${linkId}_${linkUId}`, which is how we store and access the replies
       const replyContent = replies[`${linkId}_${linkUId}_${linkSd}`];
 
       if (!replyContent) {
@@ -146,7 +144,7 @@ const TaskView = () => {
           lid: linkId,
           luid: linkUId,
           lsd: linkSd,
-          reply: replyContent, // Sending the correct reply content
+          reply: replyContent,
         }),
       });
 
@@ -155,26 +153,31 @@ const TaskView = () => {
       }
 
       const data = await response.json();
-      console.log("Reply saved:", data);
-      setSuccessMessage("Reply saved successfully");
+      console.log("Feedback added:", data);
+      setSuccessMessage("Feedback added successfully");
       setError("");
 
-      // Clear the reply field for the specific link
+
       setReplies((prevReplies) => ({
         ...prevReplies,
-        [`${linkId}_${linkUId},_${linkSd}`]: "", // Clear the reply for this link and upid combination
+        [`${linkId}_${linkUId}_${linkSd}`]: "",
       }));
+
+
+      setTimeout(() => {
+        toggleModal();
+        setSuccessMessage("");
+      }, 2000);
     } catch (error) {
-      setError("Error saving reply");
-      setSuccessMessage(""); // Clear success message in case of error
-      console.error("Error saving reply:", error);
+      setError("Error adding feedback");
+      setSuccessMessage("");
+      console.error("Error adding feedback:", error);
     }
   };
 
   useEffect(() => {
     let timer;
     if (error || successMessage) {
-
       timer = setTimeout(() => {
         setError("");
         setSuccessMessage("");
@@ -188,7 +191,7 @@ const TaskView = () => {
   return (
     <>
       <div >
-        <div className="container mx-auto px-4 my-8 flex justify-center">
+        <div className="container mx-auto px-4 my-8 mt-28 flex justify-center">
           <div className="block w-full max-w-4xl p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <div>
               <div className="relative w-full">
@@ -249,7 +252,7 @@ const TaskView = () => {
 
                 <button
                   type="submit"
-                  className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
+                  className="inline-flex justify-center p-2 text-[#005A9C] rounded-full cursor-pointer hover:bg-[#E6F0FA] dark:text-[#005A9C] dark:hover:bg-gray-600"
                 >
                   <svg
                     className="w-5 h-5 rotate-90 rtl:-rotate-90"
@@ -260,8 +263,9 @@ const TaskView = () => {
                   >
                     <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
                   </svg>
-                  <span className="sr-only">Send message</span>
+                  <span className="sr-only">Add Link</span>
                 </button>
+
 
               </div>
             </form>
@@ -292,7 +296,7 @@ const TaskView = () => {
                     </span>
                     <p className="mb-2 text-sm text-gray-400 font-normal">{link.date} </p>
                     <div className="mb-2 text-sm font-normal">
-                      <Link className="text-blue-500 hover:underline" to={link.link} target="_blank" rel="noopener noreferrer" >
+                      <Link className="text-[#005A9C] hover:underline" to={link.link} target="_blank" rel="noopener noreferrer" >
                         {link.link}
                       </Link>
                     </div>
@@ -321,24 +325,17 @@ const TaskView = () => {
                       Feedback
                     </Link> */}
 
-                    <Link
-                     
-                      onClick={openModal}
-                      data-bs-target={`crud-modal-${link._id}`} // Unique modal target
-                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        className="bi bi-send-fill mr-2"
-                        viewBox="0 0 16 16"
+                    <div className="flex justify-end">
+                      <Link
+                        onClick={openModal}
+                        data-bs-target={`crud-modal-${link._id}`} // Unique modal target
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-[#005A9C] rounded-lg hover:bg-[#004080] focus:ring-4 focus:outline-none focus:ring-[#66A3D2] dark:bg-[#005A9C] dark:hover:bg-[#003366] dark:focus:ring-[#003366]"
                       >
-                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
-                      </svg>
-                      Feedback
-                    </Link>
+                        Feedback
+                      </Link>
+                    </div>
+
+
 
 
                   </div>
@@ -348,26 +345,63 @@ const TaskView = () => {
 
 
 
-                <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                  <div class="relative p-4 w-full max-w-md max-h-full">
-
-                    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-
-                      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                           Add Feedback on Link
+                <div
+                  id="crud-modal"
+                  tabIndex="-1"
+                  aria-hidden="true"
+                  className="hidden fixed inset-0 z-50 flex items-center justify-center w-full h-full overflow-y-auto bg-black bg-opacity-50"
+                >
+                  <div className="relative p-4 w-full max-w-md max-h-full">
+                    <div className="relative bg-white rounded-lg shadow-lg dark:bg-gray-700">
+                      {error && (
+                        <div
+                          className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                          role="alert"
+                        >
+                          <span className="font-medium">Error: </span> {error}
+                        </div>
+                      )}
+                      {successMessage && (
+                        <div
+                          className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                          role="alert"
+                        >
+                          <span className="font-medium">Success: </span> {successMessage}
+                        </div>
+                      )}
+                      <div className="flex items-center justify-between p-4 md:p-5 border-b border-gray-200 rounded-t dark:border-gray-600">
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                          Add Feedback on Link
                         </h3>
-                        <button onClick={toggleModal} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        <button
+                          onClick={toggleModal}
+                          type="button"
+                          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          <svg
+                            className="w-3 h-3"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 14"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                            />
                           </svg>
-                          <span class="sr-only">Close modal</span>
+                          <span className="sr-only">Close modal</span>
                         </button>
                       </div>
-
                       <form onSubmit={(e) => handleReplySubmit(e, link._id, link.upid, link.tasksd)}>
-                        <div className="mb-4">
-                          <label htmlFor={`feedback-${link._id}`} className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <div className="mb-6 p-4 ">
+                          <label
+                            htmlFor={`feedback-${link._id}`}
+                            className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                          >
                             Give Feedback
                           </label>
                           <select
@@ -387,50 +421,51 @@ const TaskView = () => {
                         <div className="flex justify-end">
                           <button
                             type="submit"
-                            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                            className="px-4 py-2 m-2 text-sm font-medium text-white bg-[#005A9C] rounded-lg hover:bg-[#004A82] focus:ring-4 focus:outline-none focus:ring-[#0073C5] dark:bg-[#005A9C] dark:hover:bg-[#004A82] dark:focus:ring-[#0073C5]"
                           >
                             Submit
                           </button>
+
                         </div>
                       </form>
                     </div>
                   </div>
-                  </div>
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
 
-                ))
-                ) : (
-                <p>No Links Found.</p>
-          )}
 
 
 
 
-       
+
+
+
 
 
 
 
               </div>
 
+            ))
+          ) : (
+            <p>No Links Found.</p>
+          )}
+
+
+
+
+
+
+
+
+
+        </div>
+
 
 
       </div>
 
-      </>
-      )
+    </>
+  )
 }
 
-      export default TaskView
+export default TaskView
