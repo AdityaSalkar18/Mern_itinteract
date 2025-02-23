@@ -1,4 +1,5 @@
 const express = require('express');
+const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const Profile = require('../models/profile');
 const validateToken = require('../middlewares/validateToken');
@@ -18,6 +19,9 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage: storage });
+
+
+
 
 // Create a new profile with image upload
 router.post('/', validateToken, upload.single('image'), async (req, res) => {
@@ -201,178 +205,11 @@ router.patch('/edit-my-profile', validateToken, upload.single('image'), async (r
   }
 });
 
+
+
+
 module.exports = router;
 
 
 
 
-// const express = require('express');
-// const router = express.Router();
-// const Profile = require('../models/profile');
-// const validateToken = require('../middlewares/validateToken');
-// const multer = require('multer');
-// const multerS3 = require('multer-s3');
-// const AWS = require('aws-sdk');
-// const path = require('path');
-
-// // AWS S3 Configuration
-// const s3 = new AWS.S3({
-//   accessKeyId: process.env.AWS_ACCESS_KEY_ID, // Your AWS Access Key
-//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, // Your AWS Secret Key
-//   region: process.env.AWS_REGION, // Your AWS region
-// });
-
-// // Multer configuration with AWS S3 storage
-// const upload = multer({
-//   storage: multerS3({
-//     s3: s3,
-//     bucket: process.env.AWS_BUCKET_NAME, // Your S3 bucket name
-//     acl: 'public-read', // Set permissions for the uploaded files
-//     key: function (req, file, cb) {
-//       const fileExtension = path.extname(file.originalname); // Get file extension
-//       cb(null, `uploads/${Date.now()}${fileExtension}`); // Define the file key (file name in S3)
-//     },
-//   }),
-// });
-
-// // Create a new profile with image upload
-// router.post('/', validateToken, upload.single('image'), async (req, res) => {
-//   try {
-//     const {
-//       name, email, bio, act, domain, subdomain, tech, phone, github, linkedin, cmail,
-//       cphone, link, pone, plone, ptwo, pltwo, pthree, plthree, cone, cdone,
-//       ctwo, cdtwo, cthree, cdthree
-//     } = req.body;
-
-//     const profile = new Profile({
-//       user: req.user._id,
-//       name,
-//       email,
-//       bio,
-//       act,
-//       domain,
-//       subdomain,
-//       tech,
-//       phone,
-//       uimg: req.file ? req.file.location : undefined, // Save the uploaded image URL (S3 URL)
-//       github,
-//       linkedin,
-//       cmail,
-//       cphone,
-//       link,
-//       pone,
-//       plone,
-//       ptwo,
-//       pltwo,
-//       pthree,
-//       plthree,
-//       cone,
-//       cdone,
-//       ctwo,
-//       cdtwo,
-//       cthree,
-//       cdthree
-//     });
-
-//     await profile.save();
-//     res.status(201).json(profile);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Could not create profile' });
-//   }
-// });
-
-// // Fetch all user profiles
-// router.get('/', async (req, res) => {
-//   try {
-//     const profiles = await Profile.find();
-//     res.status(200).json(profiles);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Could not fetch profiles' });
-//   }
-// });
-
-// // Get user profile data by user ID
-// router.get('/get-my-profile', validateToken, async (req, res) => {
-//   try {
-//     const profile = await Profile.findOne({ user: req.user._id });
-//     if (!profile) {
-//       return res.status(404).json({ message: 'Profile not found' });
-//     }
-//     res.status(200).json(profile);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Server Error' });
-//   }
-// });
-
-// // Get profile by ID
-// router.get('/:id', async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const profile = await Profile.findById(id);
-
-//     if (!profile) {
-//       return res.status(404).json({ error: 'Profile not found' });
-//     }
-
-//     res.status(200).json(profile);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Could not fetch profile details' });
-//   }
-// });
-
-// // Edit user profile with image upload
-// router.patch('/edit-my-profile', validateToken, upload.single('image'), async (req, res) => {
-//   try {
-//     const profile = await Profile.findOne({ user: req.user._id });
-//     if (!profile) {
-//       return res.status(404).json({ message: 'Profile not found' });
-//     }
-
-//     const {
-//       name, email, bio, act, domain, subdomain, tech, phone, github, linkedin, cmail,
-//       cphone, link, pone, plone, ptwo, pltwo, pthree, plthree, cone, cdone,
-//       ctwo, cdtwo, cthree, cdthree
-//     } = req.body;
-
-//     profile.name = name || profile.name;
-//     profile.email = email || profile.email;
-//     profile.bio = bio || profile.bio;
-//     profile.act = act || profile.act;
-//     profile.domain = domain || profile.domain;
-//     profile.subdomain = subdomain || profile.subdomain;
-//     profile.tech = tech || profile.tech;
-//     profile.phone = phone || profile.phone;
-//     profile.github = github || profile.github;
-//     profile.linkedin = linkedin || profile.linkedin;
-//     profile.cmail = cmail || profile.cmail;
-//     profile.cphone = cphone || profile.cphone;
-//     profile.link = link || profile.link;
-
-//     profile.pone = pone || profile.pone;
-//     profile.plone = plone || profile.plone;
-//     profile.ptwo = ptwo || profile.ptwo;
-//     profile.pltwo = pltwo || profile.pltwo;
-//     profile.pthree = pthree || profile.pthree;
-//     profile.plthree = plthree || profile.plthree;
-
-//     profile.cone = cone || profile.cone;
-//     profile.cdone = cdone || profile.cdone;
-//     profile.ctwo = ctwo || profile.ctwo;
-//     profile.cdtwo = cdtwo || profile.cdtwo;
-//     profile.cthree = cthree || profile.cthree;
-//     profile.cdthree = cdthree || profile.cdthree;
-
-//     if (req.file) {
-//       profile.uimg = req.file.location; // Update the image URL (S3 URL) if a new image is uploaded
-//     }
-
-//     await profile.save();
-//     res.status(200).json(profile);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Server Error' });
-//   }
-// });
-
-// module.exports = router;

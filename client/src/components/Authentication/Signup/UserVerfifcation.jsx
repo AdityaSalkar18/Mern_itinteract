@@ -34,7 +34,7 @@ const UserVerfifcation = () => {
   
   return (
      <div className="flex justify-center items-center min-h-screen bg-gray-50">
-          <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 space-y-6">
+          <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 space-y-6 m-3">
             <h1 className="text-3xl font-semibold text-center text-[#005A9C] mb-4">
               <img src={networkLogo} alt="logo" width="55" height="55" className="inline mr-2" />
               ITInteract
@@ -78,7 +78,7 @@ const UserVerfifcation = () => {
               <h3 className="font-semibold text-center"><Link to="/signup" className=" text-[#005A9C] hover:underline">Register With Student Account </Link></h3>
               <div className="flex justify-between items-center mt-4">
                 
-                <Link to="/" className="text-sm text-[#005A9C] hover:underline">Already have an account? Log in here.</Link>
+                <Link to="/login" className="text-sm text-[#005A9C] hover:underline">Already have an account? Log in here.</Link>
               </div>
             </form>
           </div>

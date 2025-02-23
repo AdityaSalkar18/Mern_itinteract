@@ -2,16 +2,9 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import { motion } from "framer-motion";
 import networkLogo from './network.png';
-import { Navigate } from "react-router-dom";
+import './Landing.css'
 
-const Home = () => {
-
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-      return <Navigate to="/" replace />;
-  }
-
+const Landing = () => {
 
   const fadeUp = {
     initial: { opacity: 0, y: 50 },
@@ -47,14 +40,73 @@ const Home = () => {
   };
   return (
     <>
- 
+
     
+
+<nav className="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 left-0 w-full shadow-md z-50">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
+        <Link to="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src={networkLogo} className="h-8" alt="ITInteract" />
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            ITInteract
+          </span>
+        </Link>
+        <button
+          data-collapse-toggle="navbar-default"
+          type="button"
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-default"
+          aria-expanded="false"
+        >
+          <span className="sr-only">Open main menu</span>
+          <svg
+            className="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
+          </svg>
+        </button>
+        <div className="hidden w-full md:flex md:items-center md:w-auto" id="navbar-default">
+          <ul className="font-medium flex flex-col md:flex-row md:space-x-4 rtl:space-x-reverse md:mt-0">
+            <li>
+            <Link to="/login">
+              <button
+                type="button"
+                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              >
+                Login
+              </button>
+            </Link>
+            </li>
+            <li>
+            <Link to="/register">
+              <button
+                type="button"
+                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              >
+                Register
+              </button>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
 
 
 
 <motion.section
-    className="bg-white dark:bg-gray-900 bg-[url('https://as1.ftcdn.net/v2/jpg/08/84/26/92/1000_F_884269203_mNDqsfxvN6dP65AE2eDEitdGoV6qEbM1.jpg')] bg-no-repeat bg-cover bg-center"
+    className="mt-16 bg-white dark:bg-gray-900 bg-[url('https://as1.ftcdn.net/v2/jpg/08/84/26/92/1000_F_884269203_mNDqsfxvN6dP65AE2eDEitdGoV6qEbM1.jpg')] bg-no-repeat bg-cover bg-center"
 
       initial={{ scale: 1.1, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
@@ -90,15 +142,7 @@ const Home = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
         >
-
-<Link to="/profileform" class="inline-flex justify-between items-center py-2 px-3 pe-5 mb-7 text-base text-[#005A9C] bg-[#D6EAF8] rounded-full dark:bg-[#003B6F] dark:text-[#A9C4E4] hover:bg-[#B0D4E3] dark:hover:bg-[#002B52]">
-    <span class="text-sm bg-[#005A9C] rounded-full text-white px-5 py-2 me-3">Get Started</span> 
-    <span class="text-base font-semibold">Build and Share Your Profile</span> 
-    <svg class="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-    </svg>
-</Link>
-
+        
 
 
           {/* <Link
@@ -466,4 +510,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Landing

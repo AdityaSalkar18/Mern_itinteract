@@ -9,10 +9,12 @@ const profileSchema = new mongoose.Schema({
   },
   name: {
     type: String,
+    required: true,
     
   },
   act: {
     type: String,
+    required: true,
     
   },
   domain: {

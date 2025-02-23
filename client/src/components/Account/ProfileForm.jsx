@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const ProfileForm = () => {
 
+
     const [formData, setFormData] = useState({
         name: "",
         act: "",
@@ -34,6 +35,101 @@ const ProfileForm = () => {
         cdthree: "",
     });
 
+
+
+    //validation
+
+    const [validationErrors, setValidationErrors] = useState({});
+
+    const validateForm = () => {
+        let errors = {};
+
+
+        if (!formData.name || formData.name.trim() === "") {
+            errors.name = "Name is required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)+$/.test(formData.name.trim())) {
+            errors.name = "Enter a valid full name (first and last name).";
+        }
+
+
+        if (!formData.email || formData.email.trim() === "") {
+            errors.email = "Email is required.";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            errors.email = "Enter a valid email address.";
+        }
+
+        if (formData.phone && formData.phone.trim() !== "" && !/^\d{10}$/.test(formData.phone)) {
+            errors.phone = "Enter a valid 10-digit phone number.";
+        }
+
+
+        // GitHub URL validation
+        const githubPattern = /^https:\/\/github\.com\/[a-zA-Z0-9_-]+\/?$/;
+        if (formData.github && formData.github.trim() !== "" && !githubPattern.test(formData.github)) {
+            errors.github = "Enter a valid GitHub profile URL (e.g., https://github.com/username).";
+        }
+
+        // LinkedIn URL validation
+        const linkedinPattern = /^https:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/;
+        if (formData.linkedin && formData.linkedin.trim() !== "" && !linkedinPattern.test(formData.linkedin)) {
+            errors.linkedin = "Enter a valid LinkedIn profile URL (e.g., https://linkedin.com/in/username).";
+        }
+
+
+        // Email Validation (only if provided)
+        if (formData.cmail && formData.cmail.trim() !== "" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.cmail)) {
+            errors.cmail = "Enter a valid email address.";
+        }
+
+        // Phone Number Validation (only if provided)
+        if (formData.cphone && formData.cphone.trim() !== "" && !/^\d{10}$/.test(formData.cphone)) {
+            errors.cphone = "Enter a valid 10-digit phone number.";
+        }
+
+        // Website/Portfolio Link Validation (only if provided)
+        const urlPattern = /^(https?:\/\/)?([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(\/\S*)?$/;
+
+        if (formData.link && formData.link.trim() !== "" && !urlPattern.test(formData.link)) {
+            errors.link = "Enter a valid website URL (e.g., https://myportfolio.com).";
+        }
+
+        // Validate Project Link One (only if provided)
+        if (formData.plone && formData.plone.trim() !== "" && !urlPattern.test(formData.plone)) {
+            errors.plone = "Enter a valid project link (e.g., https://example.com).";
+        }
+
+        // Validate Project Link Two (only if provided)
+        if (formData.pltwo && formData.pltwo.trim() !== "" && !urlPattern.test(formData.pltwo)) {
+            errors.pltwo = "Enter a valid project link (e.g., https://example.com).";
+        }
+
+        // Validate Project Link Three (only if provided)
+        if (formData.plthree && formData.plthree.trim() !== "" && !urlPattern.test(formData.plthree)) {
+            errors.plthree = "Enter a valid project link (e.g., https://example.com).";
+        }
+
+
+        // Validate Certification Link One (only if provided)
+        if (formData.cdone && formData.cdone.trim() !== "" && !urlPattern.test(formData.cdone)) {
+            errors.cdone = "Enter a valid certification link (e.g., https://example.com).";
+        }
+
+        // Validate Certification Link Two (only if provided)
+        if (formData.cdtwo && formData.cdtwo.trim() !== "" && !urlPattern.test(formData.cdtwo)) {
+            errors.cdtwo = "Enter a valid certification link (e.g., https://example.com).";
+        }
+
+        // Validate Certification Link Three (only if provided)
+        if (formData.cdthree && formData.cdthree.trim() !== "" && !urlPattern.test(formData.cdthree)) {
+            errors.cdthree = "Enter a valid certification link (e.g., https://example.com).";
+        }
+
+
+
+        setValidationErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
+
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [subdomains, setSubdomains] = useState([]);
@@ -65,8 +161,47 @@ const ProfileForm = () => {
         setFormData({ ...formData, [name]: files ? files[0] : value });
     };
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     try {
+    //         const url = "http://localhost:8080/api/profile/edit-my-profile";
+    //         const formDataUpload = new FormData();
+    //         Object.entries(formData).forEach(([key, value]) => {
+    //             formDataUpload.append(key, value);
+    //         });
+
+    //         const response = await fetch(url, {
+    //             method: "PATCH",
+    //             headers: {
+    //                 Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //             },
+    //             body: formDataUpload,
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
+
+    //         const data = await response.json();
+    //         setSuccessMessage("Profile updated successfully");
+    //         setError("");
+
+    //         setTimeout(() => setSuccessMessage(""), 2000);
+
+    //     } catch (error) {
+    //         setError(error.message);
+    //         setSuccessMessage("");
+    //         setTimeout(() => setError(""), 2000);
+    //     }
+    // };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!validateForm()) {
+            return; // Stop form submission if validation fails
+        }
 
         try {
             const url = "http://localhost:8080/api/profile/edit-my-profile";
@@ -90,7 +225,6 @@ const ProfileForm = () => {
             const data = await response.json();
             setSuccessMessage("Profile updated successfully");
             setError("");
-
             setTimeout(() => setSuccessMessage(""), 2000);
 
         } catch (error) {
@@ -99,6 +233,7 @@ const ProfileForm = () => {
             setTimeout(() => setError(""), 2000);
         }
     };
+
 
     useEffect(() => {
         const getProfile = async () => {
@@ -138,8 +273,8 @@ const ProfileForm = () => {
 
     return (
         <>
-            
-            <div className="container mx-auto my-8  px-4">
+
+            <div className="container mx-auto my-8  p-4 m-3 mt-16">
                 <div className="container px-4 py-3">
                     {error && (
                         <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
@@ -156,10 +291,24 @@ const ProfileForm = () => {
 
 
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
-                        <div class="mb-6">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Name</label>
-                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" placeholder="first last" name="name" value={formData.name} onChange={handleChange} required />
+                        <div className="mb-6">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Enter Name
+                            </label>
+                            <input
+                                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.name ? "border-red-500" : "border-gray-300"
+                                    }`}
+                                type="text"
+                                placeholder="First Last"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                            />
+                            {validationErrors.name && (
+                                <p className="mt-2 text-sm text-red-600">{validationErrors.name}</p>
+                            )}
                         </div>
+
 
 
 
@@ -283,14 +432,40 @@ const ProfileForm = () => {
 
 
 
-                        <div class="mb-6">
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Your Email address</label>
-                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="email" placeholder="name@example.com" name="email" value={formData.email} onChange={handleChange} required />
+                        <div className="mb-6">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Enter Your Email Address
+                            </label>
+                            <input
+                                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.email ? "border-red-500" : "border-gray-300"
+                                    }`}
+                                type="email"
+                                placeholder="name@example.com"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                            />
+                            {validationErrors.email && (
+                                <p className="mt-2 text-sm text-red-600">{validationErrors.email}</p>
+                            )}
                         </div>
 
-                        <div class="mb-6">
-                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Your Phone No</label>
-                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" placeholder="Phone" name="phone" value={formData.phone} onChange={handleChange} />
+                        <div className="mb-6">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Enter Your Phone No
+                            </label>
+                            <input
+                                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.phone ? "border-red-500" : "border-gray-300"
+                                    }`}
+                                type="text"
+                                placeholder="Phone"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                            />
+                            {validationErrors.phone && (
+                                <p className="mt-2 text-sm text-red-600">{validationErrors.phone}</p>
+                            )}
                         </div>
 
 
@@ -299,28 +474,96 @@ const ProfileForm = () => {
                             <textarea rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tell something about yourself" name="bio" value={formData.bio} onChange={handleChange}></textarea>
                         </div>
 
-                        <div class="mb-6">
-                            <label for="github" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter GitHub</label>
-                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="url" placeholder="GitHub" name="github" value={formData.github} onChange={handleChange} />
+                        <div className="mb-6">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Enter GitHub
+                            </label>
+                            <input
+                                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.github ? "border-red-500" : "border-gray-300"
+                                    }`}
+                                type="text"
+                                placeholder="GitHub"
+                                name="github"
+                                value={formData.github}
+                                onChange={handleChange}
+                            />
+                            {validationErrors.github && (
+                                <p className="mt-2 text-sm text-red-600">{validationErrors.github}</p>
+                            )}
                         </div>
 
-                        <div class="mb-6">
-                            <label for="linkedin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Linkedin</label>
-                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="url" placeholder="LinkedIn" name="linkedin" value={formData.linkedin} onChange={handleChange} />
+                        <div className="mb-6">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Enter LinkedIn
+                            </label>
+                            <input
+                                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.linkedin ? "border-red-500" : "border-gray-300"
+                                    }`}
+                                type="text"
+                                placeholder="LinkedIn"
+                                name="linkedin"
+                                value={formData.linkedin}
+                                onChange={handleChange}
+                            />
+                            {validationErrors.linkedin && (
+                                <p className="mt-2 text-sm text-red-600">{validationErrors.linkedin}</p>
+                            )}
                         </div>
 
 
-                        <div class="mb-6">
-                            <label for="cmail" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter  Contact Email address</label>
-                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="email" placeholder="name@example.com" name="cmail" value={formData.cmail} onChange={handleChange} />
+
+                        <div className="mb-6">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Enter Contact Email Address
+                            </label>
+                            <input
+                                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.cmail ? "border-red-500" : "border-gray-300"
+                                    }`}
+                                type="email"
+                                placeholder="name@example.com"
+                                name="cmail"
+                                value={formData.cmail}
+                                onChange={handleChange}
+                            />
+                            {validationErrors.cmail && (
+                                <p className="mt-2 text-sm text-red-600">{validationErrors.cmail}</p>
+                            )}
                         </div>
-                        <div class="mb-6">
-                            <label for="cphone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Contact Phone No </label>
-                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" placeholder="0123456789" name="cphone" value={formData.cphone} onChange={handleChange} />
+
+                        <div className="mb-6">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Enter Contact Phone No
+                            </label>
+                            <input
+                                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.cphone ? "border-red-500" : "border-gray-300"
+                                    }`}
+                                type="text"
+                                placeholder="0123456789"
+                                name="cphone"
+                                value={formData.cphone}
+                                onChange={handleChange}
+                            />
+                            {validationErrors.cphone && (
+                                <p className="mt-2 text-sm text-red-600">{validationErrors.cphone}</p>
+                            )}
                         </div>
-                        <div class="mb-6">
-                            <label for="link" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter  Email address</label>
-                            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="url" placeholder="myprotfolio.com" name="link" value={formData.link} onChange={handleChange} />
+
+                        <div className="mb-6">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Enter Website/Portfolio Link
+                            </label>
+                            <input
+                                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.link ? "border-red-500" : "border-gray-300"
+                                    }`}
+                                type="text"
+                                placeholder="myportfolio.com"
+                                name="link"
+                                value={formData.link}
+                                onChange={handleChange}
+                            />
+                            {validationErrors.link && (
+                                <p className="mt-2 text-sm text-red-600">{validationErrors.link}</p>
+                            )}
                         </div>
 
 
@@ -331,25 +574,68 @@ const ProfileForm = () => {
                                 <label for="project_one" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Project One</label>
                                 <input type="text" id="project_one" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Project One" name="pone" value={formData.pone} onChange={handleChange} />
                             </div>
-                            <div>
-                                <label for="project_link_one" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Project Link One</label>
-                                <input type="url" id="project_link_one" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Project Link One" name="plone" value={formData.plone} onChange={handleChange} />
+                            <div className="mb-6">
+                                <label htmlFor="project_link_one" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Project Link One
+                                </label>
+                                <input
+                                    type="text"
+                                    id="project_link_one"
+                                    className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.plone ? "border-red-500" : "border-gray-300"
+                                        }`}
+                                    placeholder="https://example.com"
+                                    name="plone"
+                                    value={formData.plone}
+                                    onChange={handleChange}
+                                />
+                                {validationErrors.plone && (
+                                    <p className="mt-2 text-sm text-red-600">{validationErrors.plone}</p>
+                                )}
                             </div>
                             <div>
                                 <label for="project_two" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Project Two</label>
                                 <input type="text" id="project_two" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Project Two" name="ptwo" value={formData.ptwo} onChange={handleChange} />
                             </div>
-                            <div>
-                                <label for="project_link_two" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Project Link Two</label>
-                                <input type="url" id="project_link_two" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Project Link Two" name="pltwo" value={formData.pltwo} onChange={handleChange} />
+                            <div className="mb-6">
+                                <label htmlFor="project_link_two" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Project Link Two
+                                </label>
+                                <input
+                                    type="text"
+                                    id="project_link_two"
+                                    className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.pltwo ? "border-red-500" : "border-gray-300"
+                                        }`}
+                                    placeholder="https://example.com"
+                                    name="pltwo"
+                                    value={formData.pltwo}
+                                    onChange={handleChange}
+                                />
+                                {validationErrors.pltwo && (
+                                    <p className="mt-2 text-sm text-red-600">{validationErrors.pltwo}</p>
+                                )}
                             </div>
+
                             <div>
                                 <label for="project_three" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Project Three</label>
                                 <input type="text" id="project_three" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Project Three" name="pthree" value={formData.pthree} onChange={handleChange} />
                             </div>
-                            <div>
-                                <label for="project_link_three" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Project Link Three</label>
-                                <input type="url" id="project_link_three" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Project Link Three" name="plthree" value={formData.plthree} onChange={handleChange} />
+                            <div className="mb-6">
+                                <label htmlFor="project_link_three" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Project Link Three
+                                </label>
+                                <input
+                                    type="text"
+                                    id="project_link_three"
+                                    className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.plthree ? "border-red-500" : "border-gray-300"
+                                        }`}
+                                    placeholder="https://example.com"
+                                    name="plthree"
+                                    value={formData.plthree}
+                                    onChange={handleChange}
+                                />
+                                {validationErrors.plthree && (
+                                    <p className="mt-2 text-sm text-red-600">{validationErrors.plthree}</p>
+                                )}
                             </div>
                         </div>
 
@@ -371,9 +657,9 @@ const ProfileForm = () => {
 
                                 />
                             </div>
-                            <div>
+                            <div className="mb-6">
                                 <label htmlFor="cdone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Certification Date One
+                                    Certification Link One
                                 </label>
                                 <input
                                     type="text"
@@ -381,11 +667,15 @@ const ProfileForm = () => {
                                     name="cdone"
                                     value={formData.cdone}
                                     onChange={handleChange}
-                                    placeholder="Certification Date One"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
+                                    placeholder="https://example.com"
+                                    className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.cdone ? "border-red-500" : "border-gray-300"
+                                        }`}
                                 />
+                                {validationErrors.cdone && (
+                                    <p className="mt-2 text-sm text-red-600">{validationErrors.cdone}</p>
+                                )}
                             </div>
+
                             <div>
                                 <label htmlFor="ctwo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Certification Two
@@ -401,9 +691,9 @@ const ProfileForm = () => {
 
                                 />
                             </div>
-                            <div>
+                            <div className="mb-6">
                                 <label htmlFor="cdtwo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Certification Date Two
+                                    Certification Link Two
                                 </label>
                                 <input
                                     type="text"
@@ -411,11 +701,15 @@ const ProfileForm = () => {
                                     name="cdtwo"
                                     value={formData.cdtwo}
                                     onChange={handleChange}
-                                    placeholder="Certification Date Two"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
+                                    placeholder="https://example.com"
+                                    className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.cdtwo ? "border-red-500" : "border-gray-300"
+                                        }`}
                                 />
+                                {validationErrors.cdtwo && (
+                                    <p className="mt-2 text-sm text-red-600">{validationErrors.cdtwo}</p>
+                                )}
                             </div>
+
                             <div>
                                 <label htmlFor="cthree" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Certification Three
@@ -431,9 +725,9 @@ const ProfileForm = () => {
 
                                 />
                             </div>
-                            <div>
+                            <div className="mb-6">
                                 <label htmlFor="cdthree" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Certification Date Three
+                                    Certification Link Three
                                 </label>
                                 <input
                                     type="text"
@@ -441,10 +735,13 @@ const ProfileForm = () => {
                                     name="cdthree"
                                     value={formData.cdthree}
                                     onChange={handleChange}
-                                    placeholder="Certification Date Three"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
+                                    placeholder="https://example.com"
+                                    className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ${validationErrors.cdthree ? "border-red-500" : "border-gray-300"
+                                        }`}
                                 />
+                                {validationErrors.cdthree && (
+                                    <p className="mt-2 text-sm text-red-600">{validationErrors.cdthree}</p>
+                                )}
                             </div>
                         </div>
 

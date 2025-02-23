@@ -1,6 +1,8 @@
 import { BrowserRouter ,  Route, Routes,useLocation } from 'react-router-dom';
 import './App.css';
 
+//Landing
+import Landing from './components/Landing/Landing'
 //Authentication
 import Login from './components/Authentication/Login/Login';
 import Signup from './components/Authentication/Signup/Signup';
@@ -46,7 +48,8 @@ function App() {
         <BrowserRouter>
           <LocationWrapper>
             <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Landing/>} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/userverification" element={<UserVerfifcation />} />
         <Route path="/usersignup" element={<UserSignup/>} />
@@ -102,7 +105,7 @@ function LocationWrapper({ children }) {
 
   return (
     <>
-      {location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/usersignup' && location.pathname !== '/userverification' && <Navbar />}
+      {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/usersignup' && location.pathname !== '/userverification' && <Navbar />}
       {children}
     </>
   );
