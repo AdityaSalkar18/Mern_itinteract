@@ -147,6 +147,7 @@ const { User, validate } = require("../models/user");
 const bcrypt = require("bcrypt");
 const Profile = require("../models/profile");
 const rateLimit = require("express-rate-limit");
+const nodemailer = require("nodemailer");
 const fs = require("fs");
 const csv = require("csv-parser");
 
@@ -280,6 +281,43 @@ const getAllowedEmailsFromCSV = () => {
       });
   });
 };
+
+
+//useremail verfication
+
+router.post("/send-email", async (req, res) => {
+  const { name, email, phone, branch, batch, message } = req.body;
+
+  const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+          user: process.env.EMAIL_USER, 
+          pass: process.env.EMAIL_PASS, 
+      },
+  });
+
+  const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: "itinteractmernproject@gmail.com",  // Change to the receiver's email
+      subject: "New Form Submission",
+      text: `
+      Name: ${name}
+      Email: ${email}
+      Phone: ${phone}
+      Branch: ${branch}
+      Batch: ${batch}
+      Message: ${message}
+      `,
+  };
+
+  try {
+      await transporter.sendMail(mailOptions);
+      res.status(200).send({ success: true, message: "Email sent successfully!" });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send({ success: false, message: "Error sending email" });
+  }
+});
 
 module.exports = router;
 

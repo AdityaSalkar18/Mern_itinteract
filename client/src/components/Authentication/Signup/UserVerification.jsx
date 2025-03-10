@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import networkLogo from './network.png';
 
-const UserVerfifcation = () => {
+const UserVerification = () => {
 
     const [otp, setOtp] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -72,7 +72,8 @@ const UserVerfifcation = () => {
 </div>
 
      
-              <h3 className="font-semibold text-center"><Link to="https://forms.gle/J8yhmRvTBQrBb6Wt8" className=" text-[#005A9C] hover:underline">Try Another Way </Link></h3>
+              {/* <h3 className="font-semibold text-center"><Link to="https://forms.gle/J8yhmRvTBQrBb6Wt8" className=" text-[#005A9C] hover:underline">Try Another Way </Link></h3> */}
+              <h3 className="font-semibold text-center"><Link to="/useremailverification" className=" text-[#005A9C] hover:underline">Try Another Way </Link></h3>
 
               
               <h3 className="font-semibold text-center"><Link to="/signup" className=" text-[#005A9C] hover:underline">Register With Student Account </Link></h3>
@@ -87,4 +88,4 @@ const UserVerfifcation = () => {
   )
 }
 
-export default UserVerfifcation
+export default UserVerification

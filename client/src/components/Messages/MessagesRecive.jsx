@@ -42,8 +42,10 @@ const MessagesRecive = () => {
     <>
 
 
-<div className="container mx-auto px-8 py-8 pb-2 mt-10">
-  <div className="flex justify-center md:justify-end md:mr-32 ">
+<div className="container mx-auto px-4 py-8 pb-2 mt-10">
+
+
+  <div className="container flex justify-center md:justify-end md:mr-32 ">
     <Link
       to="/messagessend"
       className="font-medium text-[#005A9C] hover:underline dark:text-[#005A9C] px-4 py-2"
@@ -51,7 +53,7 @@ const MessagesRecive = () => {
       Send
     </Link>
   </div>
-</div>
+
 
 
 
@@ -68,9 +70,9 @@ const MessagesRecive = () => {
                 <div className="flex">
                   <img className="w-10 h-10 rounded-full" src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg" alt="User" />
                   <div className="ms-3 text-sm font-normal">
-                    <span className="mb-1 text-sm font-semibold text-gray-900 dark:text-white">{notification.sender}</span>
-                    <div className="mb-2 text-sm font-normal">{notification.msg}</div>
-
+                  <h5 className="font-semibold text-gray-900 dark:text-white">{notification.sender}</h5>
+                   
+                     <p>{notification.msg}</p>
                   </div>
                 </div>
               </div>
@@ -82,6 +84,9 @@ const MessagesRecive = () => {
         ) : (
           <p>Notification not found</p>
         )}
+      </div>
+
+
       </div>
     </>
   );

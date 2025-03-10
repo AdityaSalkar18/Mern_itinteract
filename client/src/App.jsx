@@ -6,7 +6,8 @@ import Landing from './components/Landing/Landing'
 //Authentication
 import Login from './components/Authentication/Login/Login';
 import Signup from './components/Authentication/Signup/Signup';
-import UserVerfifcation from './components/Authentication/Signup/UserVerfifcation';
+import UserVerification from './components/Authentication/Signup/UserVerification';
+import UserEmailVerification from './components/Authentication/Signup/UserEmailVerification';
 import UserSignup from './components/Authentication/Signup/UserSignup';
 
 //Home
@@ -51,7 +52,8 @@ function App() {
         <Route path="/" element={<Landing/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/userverification" element={<UserVerfifcation />} />
+        <Route path="/userverification" element={<UserVerification />} />
+        <Route path="/useremailverification" element={<UserEmailVerification />} />
         <Route path="/usersignup" element={<UserSignup/>} />
         
 
@@ -105,7 +107,7 @@ function LocationWrapper({ children }) {
 
   return (
     <>
-      {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/usersignup' && location.pathname !== '/userverification' && <Navbar />}
+      {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/usersignup' && location.pathname !== '/userverification' && location.pathname !== '/useremailverification' && <Navbar />}
       {children}
     </>
   );
