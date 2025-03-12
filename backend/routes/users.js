@@ -151,6 +151,9 @@ const nodemailer = require("nodemailer");
 const fs = require("fs");
 const csv = require("csv-parser");
 
+const otpFile = "./otps.csv"; // CSV file containing OTPs and emails
+const usersFile = "./useremail.csv"; // CSV file containing registered emails
+
 // Rate limiter for registration endpoint: Limits requests to 5 per 15 minutes
 const registerLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -161,32 +164,86 @@ const registerLimiter = rateLimit({
 
 // Verify OTP
 
-const otpFile = "otps.csv"; // CSV file containing OTPs
+// const otpFile = "otps.csv"; // CSV file containing OTPs
+
+// router.post("/verify-otp", (req, res) => {
+//   const { otp } = req.body;
+
+//   if (!fs.existsSync(otpFile)) {
+//     return res.status(400).json({ success: false, message: "OTP file not found." });
+//   }
+
+//   let isValid = false;
+//   fs.createReadStream(otpFile)
+//     .pipe(csv())
+//     .on("data", (row) => {
+//       if (row.otp === otp) {
+//         isValid = true;
+//       }
+//     })
+//     .on("end", () => {
+//       if (isValid) {
+//         res.json({ success: true, message: "OTP Verified" });
+//       } else {
+//         res.status(400).json({ success: false, message: "Invalid OTP" });
+//       }
+//     });
+// });
+
 
 router.post("/verify-otp", (req, res) => {
-  const { otp } = req.body;
+  const { otp, email } = req.body;
 
-  if (!fs.existsSync(otpFile)) {
-    return res.status(400).json({ success: false, message: "OTP file not found." });
+  if (!otp && !email) {
+    return res.status(400).json({ success: false, message: "Email or VCET Student Id is required." });
   }
 
   let isValid = false;
-  fs.createReadStream(otpFile)
-    .pipe(csv())
-    .on("data", (row) => {
-      if (row.otp === otp) {
-        isValid = true;
-      }
-    })
-    .on("end", () => {
-      if (isValid) {
-        res.json({ success: true, message: "OTP Verified" });
-      } else {
-        res.status(400).json({ success: false, message: "Invalid OTP" });
-      }
-    });
-});
 
+  // Verify OTP if provided
+  if (otp) {
+    if (!fs.existsSync(otpFile)) {
+      return res.status(400).json({ success: false, message: "Student Id not found." });
+    }
+
+    fs.createReadStream(otpFile)
+      .pipe(csv())
+      .on("data", (row) => {
+        if (row.otp === otp) {
+          isValid = true;
+        }
+      })
+      .on("end", () => {
+        if (isValid) {
+          return res.json({ success: true, message: "Student Id Verified" });
+        }
+        if (!email) {
+          return res.status(400).json({ success: false, message: "Invalid Student Id or Student Id not found" });
+        }
+      });
+  }
+
+  // Verify Email if provided
+  if (email) {
+    if (!fs.existsSync(usersFile)) {
+      return res.status(400).json({ success: false, message: "Email not found." });
+    }
+
+    fs.createReadStream(usersFile)
+      .pipe(csv())
+      .on("data", (row) => {
+        if (row.email === email) {
+          isValid = true;
+        }
+      })
+      .on("end", () => {
+        if (isValid) {
+          return res.json({ success: true, message: "Email Verified" });
+        }
+        return res.status(400).json({ success: false, message: "Invalid Email or Student Id" });
+      });
+  }
+});
 
 router.post("/", async (req, res) => {
 	try {

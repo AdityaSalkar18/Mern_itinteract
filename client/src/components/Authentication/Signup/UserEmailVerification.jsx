@@ -36,7 +36,7 @@ const handleSubmit = async (e) => {
       });
 
       if (response.ok) {
-          setSuccessMessage("Form submitted successfully ! New Verfication Code Provided on Email Within 48hrs");
+          setSuccessMessage("Form submitted successfully ! Your Email is Varify Within 48hrs");
           setError("");
 
           
@@ -89,7 +89,7 @@ const handleSubmit = async (e) => {
               )}
 
         <h3 className="text-xl font-bold text-gray-900">User Verfication</h3>
-        <p>(Fill the form to get access or new verfication code )</p>
+        <p>(Fill the form to get access  )</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

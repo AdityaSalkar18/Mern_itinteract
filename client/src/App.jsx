@@ -2,7 +2,8 @@ import { BrowserRouter ,  Route, Routes,useLocation } from 'react-router-dom';
 import './App.css';
 
 //Landing
-import Landing from './components/Landing/Landing'
+import Landing from './components/Landing/Landing';
+
 //Authentication
 import Login from './components/Authentication/Login/Login';
 import Signup from './components/Authentication/Signup/Signup';
@@ -90,7 +91,7 @@ function App() {
 
  
 
-
+   
         </Routes>
           </LocationWrapper>
         </BrowserRouter>
@@ -107,7 +108,7 @@ function LocationWrapper({ children }) {
 
   return (
     <>
-      {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/usersignup' && location.pathname !== '/userverification' && location.pathname !== '/useremailverification' && <Navbar />}
+      {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/usersignup' && location.pathname !== '/userverification' && location.pathname !== '/useremailverification' && location.pathname !== '/about' && <Navbar />}
       {children}
     </>
   );

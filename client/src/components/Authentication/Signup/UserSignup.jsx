@@ -93,6 +93,9 @@ const UserSignup = () => {
               onChange={handleChange}
               required
             />
+            <p className="block text-sm font-medium text-[#005A9C]">
+ [ Password must be 8+ chars, include an uppercase letter, @, and a number.]
+</p>
           </div>
 
           {error && <div className="text-red-600 text-sm">{error}</div>}

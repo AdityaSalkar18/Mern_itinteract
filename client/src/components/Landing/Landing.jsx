@@ -1,10 +1,17 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Link} from 'react-router-dom'
 import { motion } from "framer-motion";
 import networkLogo from './network.png';
 import './Landing.css'
-
+import bgImage from "./bg.jpg";
+// url('https://as1.ftcdn.net/v2/jpg/08/84/26/92/1000_F_884269203_mNDqsfxvN6dP65AE2eDEitdGoV6qEbM1.jpg')
 const Landing = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleNavbar = () => {
+    setIsOpen(!isOpen);
+  };
 
   const fadeUp = {
     initial: { opacity: 0, y: 50 },
@@ -52,11 +59,11 @@ const Landing = () => {
           </span>
         </Link>
         <button
-          data-collapse-toggle="navbar-default"
+          onClick={toggleNavbar}
           type="button"
           className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           aria-controls="navbar-default"
-          aria-expanded="false"
+          aria-expanded={isOpen}
         >
           <span className="sr-only">Open main menu</span>
           <svg
@@ -75,30 +82,35 @@ const Landing = () => {
             />
           </svg>
         </button>
-        <div className="hidden w-full md:flex md:items-center md:w-auto" id="navbar-default">
-          <ul className="font-medium flex flex-col md:flex-row md:space-x-4 rtl:space-x-reverse md:mt-0">
-            <li>
+        <div
+        id="navbar-default"
+        className={`w-full md:flex md:items-center md:w-auto ${
+          isOpen ? "block" : "hidden"
+        }`}
+      >
+        <ul className="font-medium flex flex-col md:flex-row md:space-x-4 rtl:space-x-reverse md:mt-0">
+          <li>
             <Link to="/login">
               <button
                 type="button"
-                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                className="py-2.5 px-5 mb-1.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
               >
                 Login
               </button>
             </Link>
-            </li>
-            <li>
+          </li>
+          <li>
             <Link to="/signup">
               <button
                 type="button"
-                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                className="py-2.5 px-3  mb-1.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
               >
                 Register
               </button>
-              </Link>
-            </li>
-          </ul>
-        </div>
+            </Link>
+          </li>
+        </ul>
+      </div>
       </div>
     </nav>
 
@@ -106,7 +118,9 @@ const Landing = () => {
 
 
 <motion.section
-    className="mt-16 bg-white dark:bg-gray-900 bg-[url('https://as1.ftcdn.net/v2/jpg/08/84/26/92/1000_F_884269203_mNDqsfxvN6dP65AE2eDEitdGoV6qEbM1.jpg')] bg-no-repeat bg-cover bg-center"
+    
+className="mt-16 bg-white dark:bg-gray-900 bg-no-repeat bg-cover bg-center"
+    style={{ backgroundImage: `url(${bgImage})` }}
 
       initial={{ scale: 1.1, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
@@ -394,39 +408,39 @@ const Landing = () => {
       >
         {[
           {
-            name: "Bonnie Green",
-            role: "Developer at Open AI",
+            name: "Aditya Wadje",
+            role: "Frontend Developer",
             image:
-              "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png",
-            title: "Very easy this was to integrate",
-            message: "If you care for your time, I hands down would go with this.",
+              "",
+            title: "Bridging the Gap",
+            message: "This platform has helped me connect with industry experts and gain real-world experience through tasks and feedback.",
           },
           {
-            name: "Roberta Casas",
-            role: "Lead designer at Dropbox",
+            name: "Kshitij Sonawane",
+            role: "Frontend Developer",
             image:
-              "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png",
-            title: "Solid foundation for any project",
+              "",
+            title: "A Game Changer for IT Students",
             message:
-              "Designing with Figma components that can be easily translated to the utility classes of Tailwind CSS is a huge timesaver!",
+              "I completed multiple challenges, improved my coding skills, and even got mentorship from professionals.",
           },
           {
-            name: "Jese Leos",
-            role: "Software Engineer at Facebook",
+            name: "Prajyot Sogale",
+            role: "Full Stack Developer",
             image:
-              "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png",
-            title: "Mindblowing workflow",
+              "",
+            title: "Seamless Industry Interaction",
             message:
-              "Aesthetically, the well designed components are beautiful and will undoubtedly level up your next application.",
+              "As an industry professional, I can now assign tasks to students and review their work effortlessly.",
           },
           {
-            name: "Joseph McFall",
-            role: "CTO at Google",
+            name: "Atharva Patekar",
+            role: "Backend Devloper",
             image:
-              "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png",
-            title: "Efficient Collaborating",
+              "",
+            title: "Learning Beyond the Classroom",
             message:
-              "You have many examples that can be used to create a fast prototype for your team.",
+              "The discussion forums and task-based approach make learning more engaging and practical.",
           },
         ].map((testimonial, index) => (
           <motion.figure
@@ -447,11 +461,11 @@ const Landing = () => {
               <p className="my-4">{testimonial.message}</p>
             </blockquote>
             <figcaption className="flex items-center justify-center">
-              <img
+              {/* <img
                 className="rounded-full w-9 h-9"
                 src={testimonial.image}
                 alt={`${testimonial.name} profile picture`}
-              />
+              /> */}
               <div className="space-y-0.5 font-medium dark:text-white text-left rtl:text-right ms-3">
                 <div>{testimonial.name}</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">

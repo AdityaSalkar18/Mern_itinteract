@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import { motion } from "framer-motion";
 import networkLogo from './network.png';
 import { Navigate } from "react-router-dom";
+import bgImage from "./bg.jpg";
 
 const Home = () => {
 
@@ -54,7 +55,8 @@ const Home = () => {
 
 
 <motion.section
-    className="bg-white dark:bg-gray-900 bg-[url('https://as1.ftcdn.net/v2/jpg/08/84/26/92/1000_F_884269203_mNDqsfxvN6dP65AE2eDEitdGoV6qEbM1.jpg')] bg-no-repeat bg-cover bg-center"
+    className="bg-white dark:bg-gray-900 bg-no-repeat bg-cover bg-center"
+    style={{ backgroundImage: `url(${bgImage})` }}
 
       initial={{ scale: 1.1, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
@@ -67,13 +69,14 @@ const Home = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.h1
-          className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-black md:text-5xl lg:text-6xl"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
-          ITInteract
-        </motion.h1>
+  className="mt-6  mb-4 text-4xl font-extrabold tracking-tight leading-none text-black md:text-5xl lg:text-6xl"
+  initial={{ opacity: 0, scale: 0.9 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 1, ease: "easeOut" }}
+>
+  ITInteract
+</motion.h1>
+
         <motion.p
           className="mb-8 text-lg font-normal text-gray-800 lg:text-xl sm:px-16 lg:px-48"
           initial={{ opacity: 0, x: -50 }}
@@ -90,16 +93,14 @@ const Home = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
         >
-
-<Link to="/profileform" class="inline-flex justify-between items-center py-2 px-3 pe-5 mb-7 text-base text-[#005A9C] bg-[#D6EAF8] rounded-full dark:bg-[#003B6F] dark:text-[#A9C4E4] hover:bg-[#B0D4E3] dark:hover:bg-[#002B52]">
-    <span class="text-sm bg-[#005A9C] rounded-full text-white px-5 py-2 me-3">Get Started</span> 
-    <span class="text-base font-semibold">Build and Share Your Profile</span> 
-    <svg class="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+<Link to="/profileform" className="inline-flex justify-between items-center py-2 px-3 pe-5 mb-7 text-base text-[#005A9C] bg-[#D6EAF8] rounded-full dark:bg-[#003B6F] dark:text-[#A9C4E4] hover:bg-[#B0D4E3] dark:hover:bg-[#002B52]">
+    <span className="text-sm bg-[#005A9C] rounded-full text-white px-5 py-2 me-3">Get Started</span> 
+    <span className="text-base font-semibold md:hidden">Build and Share Profiles</span> 
+    <span className="hidden md:inline text-base font-semibold">Build and Share  Profile</span> 
+    <svg className="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
     </svg>
 </Link>
-
-
 
           {/* <Link
             to=""
@@ -350,39 +351,39 @@ const Home = () => {
       >
         {[
           {
-            name: "Bonnie Green",
-            role: "Developer at Open AI",
+            name: "Aditya Wadje",
+            role: "Frontend Developer",
             image:
-              "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png",
-            title: "Very easy this was to integrate",
-            message: "If you care for your time, I hands down would go with this.",
+              "",
+            title: "Bridging the Gap",
+            message: "This platform has helped me connect with industry experts and gain real-world experience through tasks and feedback.",
           },
           {
-            name: "Roberta Casas",
-            role: "Lead designer at Dropbox",
+            name: "Kshitij Sonawane",
+            role: "Frontend Developer",
             image:
-              "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png",
-            title: "Solid foundation for any project",
+              "",
+            title: "A Game Changer for IT Students",
             message:
-              "Designing with Figma components that can be easily translated to the utility classes of Tailwind CSS is a huge timesaver!",
+              "I completed multiple challenges, improved my coding skills, and even got mentorship from professionals.",
           },
           {
-            name: "Jese Leos",
-            role: "Software Engineer at Facebook",
+            name: "Prajyot Sogale",
+            role: "Full Stack Developer",
             image:
-              "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png",
-            title: "Mindblowing workflow",
+              "",
+            title: "Seamless Industry Interaction",
             message:
-              "Aesthetically, the well designed components are beautiful and will undoubtedly level up your next application.",
+              "As an industry professional, I can now assign tasks to students and review their work effortlessly.",
           },
           {
-            name: "Joseph McFall",
-            role: "CTO at Google",
+            name: "Atharva Patekar",
+            role: "Backend Devloper",
             image:
-              "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png",
-            title: "Efficient Collaborating",
+              "",
+            title: "Learning Beyond the Classroom",
             message:
-              "You have many examples that can be used to create a fast prototype for your team.",
+              "The discussion forums and task-based approach make learning more engaging and practical.",
           },
         ].map((testimonial, index) => (
           <motion.figure
@@ -403,11 +404,11 @@ const Home = () => {
               <p className="my-4">{testimonial.message}</p>
             </blockquote>
             <figcaption className="flex items-center justify-center">
-              <img
+              {/* <img
                 className="rounded-full w-9 h-9"
                 src={testimonial.image}
                 alt={`${testimonial.name} profile picture`}
-              />
+              /> */}
               <div className="space-y-0.5 font-medium dark:text-white text-left rtl:text-right ms-3">
                 <div>{testimonial.name}</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
@@ -431,16 +432,16 @@ const Home = () => {
             </Link>
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                 <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
+                    <Link to="#" class="hover:underline me-4 md:me-6">About</Link>
                 </li>
                 <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+                    <Link to="#" class="hover:underline me-4 md:me-6">Privacy Policy</Link>
                 </li>
                 <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+                    <Link to="#" class="hover:underline me-4 md:me-6">Licensing</Link>
                 </li>
                 <li>
-                    <a href="#" class="hover:underline">Contact</a>
+                    <Link to="#" class="hover:underline">Contact</Link>
                 </li>
             </ul>
         </div>
