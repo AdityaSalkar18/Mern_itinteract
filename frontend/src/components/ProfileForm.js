@@ -68,7 +68,7 @@ export default function ProfileForm() {
     e.preventDefault();
 
     try {
-      const url = "http://localhost:8080/api/profile/edit-my-profile";
+      const url = "http://localhost:8080/api/api/profile/edit-my-profile";
       const formDataUpload = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
         formDataUpload.append(key, value);
@@ -102,7 +102,7 @@ export default function ProfileForm() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const url = "http://localhost:8080/api/profile/get-my-profile";
+        const url = "http://localhost:8080/api/api/profile/get-my-profile";
         const response = await fetch(url, {
           method: "GET",
           headers: {

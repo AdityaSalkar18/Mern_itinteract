@@ -25,7 +25,7 @@ export default function TaskView() {
   useEffect(() => {
     const fetchTask = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/task/${id}`);
+        const response = await fetch(`http://localhost:8080/api/api/task/${id}`);
         if (response.ok) {
           const data = await response.json();
           setTask(data);
@@ -55,7 +55,7 @@ export default function TaskView() {
 
       const linkFormData = { ...formData, tid: id , tsd: task.sd };
 
-      const url = "http://localhost:8080/api/link";
+      const url = "http://localhost:8080/api/api/link";
 
       const response = await fetch(url, {
         method: "POST",
@@ -87,7 +87,7 @@ export default function TaskView() {
     const fetchData = async () => {
       try {
         // Use the task ID (`id`) in the URL to fetch links by task
-        const response = await axios.get(`http://localhost:8080/api/link/${id}`);
+        const response = await axios.get(`http://localhost:8080/api/api/link/${id}`);
         setLinks(response.data); // Update the state with fetched links
       } catch (error) {
         console.error('Error fetching links:', error);
@@ -117,7 +117,7 @@ export default function TaskView() {
     setSuccessMessage("");
 
     try {
-      const url = "http://localhost:8080/api/reply";
+      const url = "http://localhost:8080/api/api/reply";
 
       // The key is now `${linkId}_${linkUId}`, which is how we store and access the replies
       const replyContent = replies[`${linkId}_${linkUId}_${linkSd}`];
@@ -386,7 +386,7 @@ export default function TaskView() {
 //   useEffect(() => {
 //     const fetchTask = async () => {
 //       try {
-//         const response = await fetch(`http://localhost:8080/api/task/${id}`);
+//         const response = await fetch(`http://localhost:8080/api/api/task/${id}`);
 //         if (response.ok) {
 //           const data = await response.json();
 //           setTask(data);
@@ -403,7 +403,7 @@ export default function TaskView() {
 //   useEffect(() => {
 //     const fetchLinks = async () => {
 //       try {
-//         const response = await axios.get("http://localhost:8080/api/link");
+//         const response = await axios.get("http://localhost:8080/api/api/link");
 //         setLinks(response.data);
 //       } catch (error) {
 //         console.error("Error fetching links:", error);
@@ -424,7 +424,7 @@ export default function TaskView() {
 //     const isCorrect = linkStatuses[linkId];
 //     try {
 //       // Send the link's ID and correctness status to the server
-//       const response = await fetch("http://localhost:8080/api/replyOnLink", {
+//       const response = await fetch("http://localhost:8080/api/api/replyOnLink", {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",

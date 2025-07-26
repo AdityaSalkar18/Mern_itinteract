@@ -24,7 +24,7 @@ export default function Updates() {
 
     try {
       const updateFormData = { ...formData, sd: subdomain };
-      const url = "http://localhost:8080/api/update";
+      const url = "http://localhost:8080/api/api/update";
 
       const response = await fetch(url, {
         method: "POST",
@@ -69,7 +69,7 @@ export default function Updates() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/update');
+        const response = await axios.get('http://localhost:8080/api/api/update');
         setUpdates(response.data);
       } catch (error) {
         console.error('Error fetching updates:', error);

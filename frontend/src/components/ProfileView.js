@@ -11,7 +11,7 @@ export default function ProfileView() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/profile/${id}`); // Adjust the API route as per your setup
+        const response = await fetch(`http://localhost:8080/api/api/profile/${id}`); // Adjust the API route as per your setup
         if (response.ok) {
           const data = await response.json();
           setUserProfile(data);
@@ -61,7 +61,7 @@ export default function ProfileView() {
     }
 
     try {
-      const url = "http://localhost:8080/api/notification";
+      const url = "http://localhost:8080/api/api/notification";
 
       const payload = {
         reciverid: reciverid,
@@ -101,7 +101,7 @@ export default function ProfileView() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const url = "http://localhost:8080/api/profile/get-my-profile"; // Update the URL to your backend server running on port 8080
+        const url = "http://localhost:8080/api/api/profile/get-my-profile"; // Update the URL to your backend server running on port 8080
         const response = await fetch(url, {
           method: "GET",
           headers: {

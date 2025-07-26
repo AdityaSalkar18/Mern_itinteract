@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState,useRef  } from 'react'
 import { Link } from 'react-router-dom'
 import { SubdomainContext } from '../SubdomainContext';
 import networkLogo from './network.png';
@@ -7,23 +7,71 @@ import { useLocation } from "react-router-dom";
 const Navbar = () => {
 
   const { setSubdomain } = useContext(SubdomainContext);
-  // const [isActive, setIsActive] = useState(true);
+  
 
   //dropdown
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
+
+  // const toggleDropdown = () => {
+  //   setIsOpen(!isOpen);
+  // };
+
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
+  const closeDropdown = () => {
+    setIsOpen(false);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        closeDropdown();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
 
   //navbar
+  // const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+
+  // const toggleNavbar = () => {
+  //   setIsNavbarOpen(!isNavbarOpen);
+  // };
+
+
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  const navbarRef = useRef(null);
 
   const toggleNavbar = () => {
-    setIsNavbarOpen(!isNavbarOpen);
+    setIsNavbarOpen((prev) => !prev);
   };
+
+  // Close navbar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target) && isNavbarOpen) {
+        setIsNavbarOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isNavbarOpen]);
+
 
 
   //logout
@@ -35,27 +83,6 @@ const Navbar = () => {
 
 
 
-  // //domain model
-  //   const checkModal = () => {
-  //     const modal = document.getElementById('drawer-top-example');
-  //     if (isActive) {
-  //       modal.classList.add('show');
-  //       modal.style.display = 'block';
-  //     } else {
-  //       modal.classList.remove('show');
-  //       modal.style.display = 'none';
-  //       setIsActive(true);
-  //     }
-  //   }
-
-  //   const handleSubdomainChange = (subdomain) => {
-  //     setIsActive(false);
-  //     checkModal();
-  //     setSubdomain(subdomain);
-  //   };
-
-
-  //domain model
 
   const [isActive, setIsActive] = useState(false);
   const location = useLocation(); // Detects route changes
@@ -135,15 +162,12 @@ const Navbar = () => {
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="#" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src={networkLogo} class="h-8" alt="ITInteract" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ITInteract</span>
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-[#005A9C]">ITInteract</span>
           </Link>
           <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            {/* <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-              <span class="sr-only">Open user menu</span>
-              <img class="w-8 h-8 rounded-full" src= "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg" alt="user photo" />
-            </button> */}
+           
 
-            <button
+            {/* <button
               type="button"
               className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
               onClick={toggleDropdown}
@@ -154,67 +178,87 @@ const Navbar = () => {
                 src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
                 alt="user photo"
               />
-            </button>
-
-            {isOpen && (
-              <div className="absolute right-2 md:right-12 top-full mt-2 w-48 z-50 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600">
-                <div className="px-4 py-3">
-                  <span className="block text-sm text-gray-900 dark:text-white">
-                    {userProfile?.name || "User Name"}
-                  </span>
-                  <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
-                    {userProfile?.email || "Email"}
-                  </span>
-                  <Link to="/edit-profile" className="block text-sm text-[#005A9C] mt-1">
-                    Edit Profile
-                  </Link>
-                </div>
-                <ul className="py-2">
-                  <li>
-                    <Link
-                      to="/myupdates"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      My Updates
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/mytasks"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      My Task
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/taskimpact"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Task Impact
-                    </Link>
-                  </li>
-                  <li>
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Sign out
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            )}
-
-
-            {/* <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
-              <span class="sr-only">Open main menu</span>
-              <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
-              </svg>
             </button> */}
 
-            <button
+            <div className="relative" ref={dropdownRef}>
+      <button
+        type="button"
+        className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+        onClick={toggleDropdown}
+      >
+        <span className="sr-only">Open user menu</span>
+        <img
+          className="w-8 h-8 rounded-full"
+          src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+          alt="user photo"
+        />
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-2 md:right-12 top-full mt-2 w-48 z-50 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600">
+          <div className="px-4 py-3">
+            <span className="block text-sm text-gray-900 dark:text-white">
+              {userProfile?.name || "User Name"}
+            </span>
+            <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
+              {userProfile?.email || "Email"}
+            </span>
+            <Link
+              to="/profileform"
+              className="block text-sm text-[#005A9C] mt-1"
+              onClick={closeDropdown}
+            >
+              Edit Profile
+            </Link>
+          </div>
+          <ul className="py-2">
+            <li>
+              <Link
+                to="/myupdates"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                onClick={closeDropdown}
+              >
+                My Updates
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/mytasks"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                onClick={closeDropdown}
+              >
+                My Task
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/taskimpact"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                onClick={closeDropdown}
+              >
+                Task Impact
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  closeDropdown();
+                }}
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >
+                Sign out
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
+    </div>
+
+
+            
+
+            {/* <button
               onClick={toggleNavbar}
               type="button"
               className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -231,11 +275,30 @@ const Navbar = () => {
                   d="M1 1h15M1 7h15M1 13h15"
                 />
               </svg>
-            </button>
+            </button> */}
+
+            <button
+        onClick={toggleNavbar}
+        type="button"
+        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        aria-controls="navbar-user"
+        aria-expanded={isNavbarOpen}
+      >
+        <span className="sr-only">Open main menu</span>
+        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M1 1h15M1 7h15M1 13h15"
+          />
+        </svg>
+      </button>
 
           </div>
 
-          <div
+          {/* <div
             className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isNavbarOpen ? "block" : "hidden"
               }`}
             id="navbar-user"
@@ -260,19 +323,7 @@ const Navbar = () => {
               </li>
 
               <li>
-                {/* <Link
-              onClick={() => {
-                setIsNavbarOpen(false); // Close navbar when clicking
-              }}
-              data-drawer-target="drawer-top-example"
-              data-drawer-show="drawer-top-example"
-              data-drawer-placement="top"
-              aria-controls="drawer-top-example"
-              className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-            >
-              Domain
-            </Link> */}
-
+                
                 <Link
                   onClick={(e) => {
                     e.preventDefault(); // Prevents unwanted navigation
@@ -301,15 +352,50 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
+          <div
+        ref={navbarRef}
+        className={`absolute top-full left-0 w-full md:w-auto bg-white dark:bg-gray-800 shadow-lg rounded-lg md:flex md:relative md:top-auto md:shadow-none md:rounded-none md:items-center md:justify-between md:flex-row ${
+          isNavbarOpen ? "block" : "hidden"
+        }`}
+        id="navbar-user"
+      >
+        <ul className="flex flex-col md:flex-row md:space-x-8 p-4 md:p-0">
+          <li>
+            <Link to="/home" className="block px-4 py-2 text-gray-900 dark:text-white" onClick={() => setIsNavbarOpen(false)}>Home</Link>
+          </li>
+          <li>
+            <Link to="/account" className="block px-4 py-2 text-gray-900 dark:text-white" onClick={() => setIsNavbarOpen(false)}>Account</Link>
+          </li>
+          <li>
+            <Link
+              onClick={(e) => {
+                e.preventDefault(); // Prevents unwanted navigation
+                setIsNavbarOpen(false); // Close navbar
 
-
-        </div>
+                if (isActive) {
+                  closeModal(); // If modal is open, close it
+                } else {
+                  openModal(); // If modal is closed, open it
+                }
+              }}
+              className="block px-4 py-2 text-gray-900 dark:text-white"
+            >
+              Domain
+            </Link>
+          </li>
+          <li>
+            <Link to="/messagesrecive" className="block px-4 py-2 text-gray-900 dark:text-white" onClick={() => setIsNavbarOpen(false)}>Notification</Link>
+          </li>
+        </ul>
+      </div>
+      </div>
       </nav>
 
+      
+      
 
-
-      <div id="drawer-top-example" class="fixed top-0 left-0 right-0 z-40 w-full p-4 my-16   transition-transform -translate-y-full bg-white dark:bg-gray-800 " tabindex="-1" aria-labelledby="drawer-top-label">
+      <div id="drawer-top-example" class="fixed top-0 left-0 right-0 z-40 w-full p-4 pb-8 my-16  transition-transform -translate-y-full bg-white dark:bg-gray-800 " tabindex="-1" aria-labelledby="drawer-top-label">
         <h5 id="drawer-top-label" class="inline-flex items-center  text-base font-medium text-gray-500 dark:text-gray-400 m-3">Domain - SubDomain</h5>
         {/* <button type="button" data-drawer-hide="drawer-top-example" aria-controls="drawer-top-example" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
       <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -381,37 +467,13 @@ const Navbar = () => {
         </div>
 
         <div className="flex justify-center items-center h-full">
-          {/* <button
-            type="button"
-            data-drawer-hide="drawer-top-example"
-            aria-controls="drawer-top-example"
-            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-6 h-6 dark:hover:bg-gray-600 dark:hover:text-white"
-            style={{ padding: '0' }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              className="bi bi-chevron-double-up"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708z"
-              />
-              <path
-                fillRule="evenodd"
-                d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"
-              />
-            </svg>
-          </button> */}
+          
 
           <button
             type="button"
             onClick={closeModal} // Call closeModal function
             aria-controls="drawer-top-example"
-            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-6 h-6 dark:hover:bg-gray-600 dark:hover:text-white"
+            className="text-gray-400 mb-12 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-6 h-6 dark:hover:bg-gray-600 dark:hover:text-white"
             style={{ padding: "0" }}
           >
             <svg
@@ -437,6 +499,7 @@ const Navbar = () => {
 
 
       </div>
+     
     </>
   )
 }

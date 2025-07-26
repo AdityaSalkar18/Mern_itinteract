@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import networkLogo from './network.png';
+import bg from './bg.jpg';
 
 const UserVerification = () => {
 
@@ -73,7 +74,11 @@ const UserVerification = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+     <div
+      className="flex justify-center items-center min-h-screen bg-gray-100 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${bg})` }}
+    
+    >
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 space-y-6 m-3">
         <h1 className="text-3xl font-semibold text-center text-[#005A9C] mb-4">
           <img src={networkLogo} alt="logo" width="55" height="55" className="inline mr-2" />

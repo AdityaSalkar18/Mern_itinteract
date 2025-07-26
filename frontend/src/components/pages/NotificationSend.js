@@ -12,7 +12,7 @@ export default function NotificationSend() {
         
         const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:8080/api/notification/send-notification', {
+        const response = await fetch('http://localhost:8080/api/api/notification/send-notification', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

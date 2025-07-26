@@ -18,7 +18,7 @@ export default function UpdateView() {
   useEffect(() => {
     const fetchUpdate = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/update/${id}`);
+        const response = await fetch(`http://localhost:8080/api/api/update/${id}`);
         if (response.ok) {
           const data = await response.json();
           setUpdate(data);
@@ -49,7 +49,7 @@ export default function UpdateView() {
 
       const commentFormData = { ...formData, uid: id };
 
-      const url = "http://localhost:8080/api/comment";
+      const url = "http://localhost:8080/api/api/comment";
 
       const response = await fetch(url, {
         method: "POST",
@@ -80,7 +80,7 @@ export default function UpdateView() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/comment');
+        const response = await axios.get('http://localhost:8080/api/api/comment');
         setComments(response.data);
       } catch (error) {
         console.error('Error fetching comments:', error);

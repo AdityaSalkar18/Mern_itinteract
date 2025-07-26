@@ -120,7 +120,7 @@ const UpdateView = () => {
                 <p className="mb-2 text-sm text-gray-400 font-normal">[{update.sd}] {update.date}</p>
               </div>
             </div>
-            <p>
+            <p className='dark:text-white'>
               {update.desc}
             </p>
 
@@ -186,28 +186,27 @@ const UpdateView = () => {
           {Array.isArray(comments) && comments.length > 0 ? (
             filteredComments.map((comment) => (
               <div
-                id="toast-message-cta"
-                className="block w-full max-w-4xl p-6 mb-3 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-                role="alert"
-                key={comment._id} // Ensure to add a key for each comment
-              >
-                <div className="flex">
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
-                    alt="User"
-                  />
-                  <div className="ms-3 text-sm font-normal">
-                    <span className="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
-                      {comment.name}
-                    </span>
-                    <p className="mb-2 text-sm text-gray-400 font-normal">{comment.date}</p>
-                    <div className="mb-2 text-sm font-normal">
-                      {comment.msg}
-                    </div>
-                  </div>
-                </div>
-              </div>
+  key={comment._id}
+  className="block w-full max-w-4xl p-6 mb-3 bg-white border border-gray-200 rounded-lg hover:shadow-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition duration-300"
+>
+  <div className="flex">
+    <img
+      className="w-10 h-10 rounded-full"
+      src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+      alt="User"
+    />
+    <div className="ms-3 text-sm font-normal">
+      <span className="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
+        {comment.name}
+      </span>
+      <p className="mb-2 text-sm text-gray-400">{comment.date}</p>
+      <div className="mb-2 text-sm text-gray-700 dark:text-white">
+        {comment.msg}
+      </div>
+    </div>
+  </div>
+</div>
+
             ))
           ) : (
             <p>No Comments Found.</p>

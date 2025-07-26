@@ -18,7 +18,7 @@ export default function Myupdates() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/update/user', {
+                const response = await axios.get('http://localhost:8080/api/api/update/user', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
 
@@ -37,7 +37,7 @@ export default function Myupdates() {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:8080/api/update/${id}`, {
+            const response = await axios.delete(`http://localhost:8080/api/api/update/${id}`, {
                 headers: {
 
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -69,7 +69,7 @@ export default function Myupdates() {
         e.preventDefault();
 
         try {
-            const url = `http://localhost:8080/api/update/${currentUpdateId}`; // Use the currentUpdateId
+            const url = `http://localhost:8080/api/api/update/${currentUpdateId}`; // Use the currentUpdateId
             const response = await axios.patch(url, formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -69,7 +69,7 @@ const Home = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.h1
-  className="mt-6  mb-4 text-4xl font-extrabold tracking-tight leading-none text-black md:text-5xl lg:text-6xl"
+  className="mt-6  mb-4 text-4xl font-extrabold tracking-tight leading-none text-[#005A9C] md:text-5xl lg:text-6xl"
   initial={{ opacity: 0, scale: 0.9 }}
   animate={{ opacity: 1, scale: 1 }}
   transition={{ duration: 1, ease: "easeOut" }}
@@ -77,8 +77,8 @@ const Home = () => {
   ITInteract
 </motion.h1>
 
-        <motion.p
-          className="mb-8 text-lg font-normal text-gray-800 lg:text-xl sm:px-16 lg:px-48"
+        <motion.h3
+          className="mb-8 text-lg font-normal text-gray-600 lg:text-xl sm:px-16 lg:px-48"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -86,7 +86,7 @@ const Home = () => {
           The platform that bridges the gap between IT students and industry
           professionals. Join, learn, and grow together for a brighter future
           in tech.
-        </motion.p>
+        </motion.h3>
         <motion.div
           className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0"
           initial={{ opacity: 0 }}
@@ -126,7 +126,7 @@ const Home = () => {
         viewport={{ once: true }}
       >
         <motion.h1
-          className="text-4xl font-extrabold text-gray-900 dark:text-white"
+          className="text-4xl font-extrabold  text-[#005A9C]  "
           {...fadeUp}
         >
           ITInteract Features
@@ -183,7 +183,7 @@ const Home = () => {
             whileTap={{ scale: 0.95 }}
             {...fadeUp}
           >
-            <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            <h5 className="mb-2 text-2xl font-semibold tracking-tight text-[#005A9C] dark:text-white">
               {feature.title}
             </h5>
             <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
@@ -223,7 +223,7 @@ const Home = () => {
             </ul>
             <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
               <div class=" p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-                <dl class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-3 xl:grid-cols-6 dark:text-white sm:p-8">
+                <dl class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-[#005A9C] opacity-90 sm:grid-cols-3 xl:grid-cols-6 dark:text-white sm:p-8">
                   <div class="flex flex-col items-center justify-center">
                     <dt class="mb-2 text-3xl font-extrabold">1000+</dt>
                     <dd class="text-gray-500 dark:text-gray-400">Student</dd>
@@ -335,7 +335,7 @@ const Home = () => {
 
         <div className="container mx-auto my-28 px-4">
       <motion.h2
-        className="text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-8"
+        className="text-3xl font-extrabold text-[#005A9C]  text-center mb-8"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -398,7 +398,7 @@ const Home = () => {
             variants={cardVariants}
           >
             <blockquote className="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-[#005A9C] dark:text-white">
                 {testimonial.title}
               </h3>
               <p className="my-4">{testimonial.message}</p>
@@ -410,7 +410,7 @@ const Home = () => {
                 alt={`${testimonial.name} profile picture`}
               /> */}
               <div className="space-y-0.5 font-medium dark:text-white text-left rtl:text-right ms-3">
-                <div>{testimonial.name}</div>
+                <div className=" text-gray-600">{testimonial.name}</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
                   {testimonial.role}
                 </div>
@@ -423,12 +423,20 @@ const Home = () => {
 
 
 
+       
+
+
+
+
+          
+        </div>
+
         <footer class="bg-white rounded-lg shadow-sm dark:bg-gray-900 w-full">
     <div class="w-full mx-auto p-4 md:py-8">
         <div class="sm:flex sm:items-center sm:justify-between">
             <Link to="#" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
             <img src={networkLogo} class="h-8" alt="ITInteract" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ITInteract</span>
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-[#005A9C]">ITInteract</span>
             </Link>
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                 <li>
@@ -450,12 +458,6 @@ const Home = () => {
     </div>
 </footer>
 
-
-
-
-
-          
-        </div>
 
 
         

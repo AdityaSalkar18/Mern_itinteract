@@ -16,7 +16,7 @@ export default function MyTask() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/task/user",
+          "http://localhost:8080/api/api/task/user",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -35,7 +35,7 @@ export default function MyTask() {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:8080/api/task/${id}`,
+        `http://localhost:8080/api/api/task/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -64,7 +64,7 @@ export default function MyTask() {
     e.preventDefault();
 
     try {
-      const url = `http://localhost:8080/api/task/${currentTaskId}`; // Use the currentUpdateId
+      const url = `http://localhost:8080/api/api/task/${currentTaskId}`; // Use the currentUpdateId
       const response = await axios.patch(url, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

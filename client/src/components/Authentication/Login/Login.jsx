@@ -63,6 +63,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import networkLogo from './network.png';
+import bg from './bg.jpg';
 import { PiStudentBold } from "react-icons/pi";
 import { PiUserBold } from "react-icons/pi";
 
@@ -109,7 +110,12 @@ export default function Login() {
   return (
     <>
  
-    <div className="flex justify-center items-center min-h-screen bg-gray-100" >
+ <div
+  className="flex justify-center items-center min-h-screen bg-gray-100 bg-cover bg-center bg-no-repeat md:bg-cover md:bg-center"
+  style={{ backgroundImage: `url(${bg})` }}
+>
+
+
     
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg m-3">
         <h1 className="text-3xl font-semibold text-center text-[#005A9C] mb-4">

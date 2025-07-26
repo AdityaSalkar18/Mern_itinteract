@@ -156,80 +156,88 @@ const MyTask = () => {
 
                 {Array.isArray(tasks) && tasks.length > 0 ? (
                     tasks.map((task) => (
-                        <div className="block w-full max-w-4xl p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <div className="block w-full max-w-4xl  p-6 mb-3 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                             <Link to={`/taskview/${task._id}`}>
                                 <div>
-                                    <div className="relative w-full">
-                                        <div className="flex items-center">
-                                            <img
-                                                className="w-10 h-10 rounded-full"
-                                                src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
-                                                alt="User"
-                                            />
+                                    <div className="flex items-start">
+                                      
+                                        <img
+                                            className="w-10 h-10 rounded-full"
+                                            src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+                                            alt="User"
+                                        />
 
-                                            <div className="ms-3 font-normal">
+                                       
+                                        <div className="ms-3 font-normal w-full">
+                                            {/* Task Name & Actions */}
+                                            <div className="flex justify-between items-center">
                                                 <h5 className="font-semibold text-gray-900 dark:text-white">{task.name}</h5>
-                                                <p className="mb-2 text-sm text-gray-400 font-normal">
-                                                    <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-blue-900 dark:text-blue-300">
-                                                        {task.tc}
+                                                <div className="flex flex-col items-end space-y-1">
+                                                    <div className="flex gap-2">
+                                                        <Link
+                                                            to=""
+                                                            style={{ color: "#005A9C" }}
+                                                            onClick={() => {
+                                                                setCurrentTaskId(task._id);
+                                                                setFormData({
+                                                                    tt: task.tt,
+                                                                    tc: task.tc,
+                                                                    tr: task.tr,
+                                                                    tdesc: task.tdesc,
+                                                                });
+                                                                openModal();
+                                                            }}
+                                                        >
+                                                            Update
+                                                        </Link>
+
+                                                        <Link
+                                                            to=""
+                                                            style={{ color: "#005A9C" }}
+                                                            onClick={() => handleDelete(task._id)}
+                                                        >
+                                                            Delete
+                                                        </Link>
+                                                    </div>
+
+                                                  
+                                                    <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-sm dark:bg-blue-900 dark:text-blue-300">
+                                                        {task.tut}
                                                     </span>
-                                                    [{task.sd}] {task.date}
-                                                </p>
-                                            </div>
-
-                                            <div className="ml-auto flex flex-col items-end space-y-2">
-                                                <div className="ml-auto flex space-x-4">
-                                                    <Link
-                                                        to=""
-                                                        style={{ color: "#005A9C" }}
-                                                        className="text-end"
-                                                        onClick={() => {
-                                                            setCurrentTaskId(task._id);
-                                                            setFormData({
-                                                                tt: task.tt,
-                                                                tc: task.tc,
-                                                                tr: task.tr,
-                                                                tdesc: task.tdesc,
-                                                            });
-                                                            openModal();
-                                                        }}
-                                                    >
-                                                        Update
-                                                    </Link>
-
-
-                                                    <Link
-                                                        to=""
-                                                        style={{ color: "#005A9C" }}
-                                                        className="text-end"
-                                                        onClick={() => handleDelete(task._id)}
-                                                    >
-                                                        Delete
-                                                    </Link>
-
                                                 </div>
-
-                                                <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-sm dark:bg-blue-900 dark:text-blue-300">
-                                                    {task.tut}
-                                                </span>
                                             </div>
+
+                                          
+                                            <p className="text-sm text-gray-400 font-normal ">
+                                                <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-blue-900 dark:text-blue-300">
+                                                    {task.tc}
+                                                </span>
+                                                [{task.sd}] {task.date}
+                                            </p>
                                         </div>
                                     </div>
 
 
 
 
-                                    <h6 className='mb-2 '>
-                                        {task.tt}
+
+
+                                    <h6 className='mb-2 text-gray-900 font-medium dark:text-white'>
+                                    {task.tt.length > 50 ? task.tt.substring(0, 50) + "..." : task.tt}
                                     </h6>
-                                    <p className='mb-2'>
+                                    <p className='mb-2 dark:text-white'>
                                         [  {task.tr.length > 50 ? task.tr.substring(0, 50) + "..." : task.tr}]
                                     </p>
 
-                                    <p>
+                                    <p className='dark:text-white'>
                                         {task.tdesc.length > 100 ? task.tdesc.substring(0, 100) + "..." : task.tdesc}
                                     </p>
                                 </div>
+
+
+
+
+
 
                             </Link>
 
@@ -377,7 +385,7 @@ const MyTask = () => {
                             </div>
 
                             <div className="flex justify-end">
-                            <button
+                                <button
                                     type="submit"
                                     className="text-white inline-flex items-center bg-[#005A9C] hover:bg-[#00407A] focus:ring-4 focus:outline-none focus:ring-[#00407A] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                 >

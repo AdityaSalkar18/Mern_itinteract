@@ -27,7 +27,7 @@ export default function Tasks() {
     e.preventDefault();
     try {
       const taskFormData = { ...formData, sd: subdomain };
-      const url = "http://localhost:8080/api/task";
+      const url = "http://localhost:8080/api/api/task";
 
       const response = await fetch(url, {
         method: "POST",
@@ -66,7 +66,7 @@ export default function Tasks() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/task');
+        const response = await axios.get('http://localhost:8080/api/api/task');
         setTasks(response.data);
       } catch (error) {
         console.error('Error fetching tasks:', error);

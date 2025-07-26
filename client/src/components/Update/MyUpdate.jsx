@@ -64,20 +64,20 @@ const MyUpdate = () => {
     const openModal = () => {
         document.getElementById("crud-modal").classList.remove("hidden");
     };
-    
+
     const toggleModal = () => {
         const modal = document.getElementById("crud-modal");
         modal.classList.toggle("hidden");
     };
-    
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         try {
             const url = `http://localhost:8080/api/update/${currentUpdateId}`; // Use the currentUpdateId
             const response = await axios.patch(url, formData, {
@@ -86,17 +86,17 @@ const MyUpdate = () => {
                     'Content-Type': 'application/json',
                 },
             });
-    
+
             if (response.status === 200) {
                 setSuccessMessage("Update successfully saved");
                 setError("");
-    
+
                 // Refresh the list of updates
                 const updatedList = updates.map((update) =>
                     update._id === currentUpdateId ? { ...update, desc: formData.desc } : update
                 );
                 setUpdates(updatedList);
-    
+
                 // Close the modal after 2 seconds
                 setTimeout(() => {
                     toggleModal(); // Close the modal
@@ -111,7 +111,7 @@ const MyUpdate = () => {
             console.error("Error updating profile:", error);
         }
     };
-    
+
     useEffect(() => {
         if (alert.message) {
             setTimeout(() => {
@@ -119,7 +119,7 @@ const MyUpdate = () => {
             }, 2000);
         }
     }, [alert]);
-    
+
     return (
         <div className="container mx-auto px-4 my-8 mt-28">
 
@@ -165,45 +165,41 @@ const MyUpdate = () => {
                                             src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
                                             alt="User"
                                         />
-
-                                        <div className="ms-3 font-normal">
+                                        <div className="ms-3 font-normal flex justify-between items-center w-full">
                                             <h5 className="font-semibold text-gray-900 dark:text-white">{update.name}</h5>
-                                            <p className="mb-2 text-sm text-gray-400 font-normal">
-                                                [{update.sd}] {update.date}
-                                            </p>
-                                        </div>
-
-                                        <div className="ml-auto flex space-x-4">
-                                            <Link
-                                                to=""
-                                                className="text-end mx-2"
-                                                style={{ color: "#005A9C" }}
-                                                onClick={() => {
-                                                    setCurrentUpdateId(update._id);
-                                                    setFormData({ desc: update.desc });
-                                                    openModal();
-                                                }}
-                                            >
-                                                Update
-                                            </Link>
-
-
-                                            <Link
-                                                to=""
-                                                className="text-end mx-2"
-                                                style={{ color: "#005A9C" }}
-                                                onClick={() => handleDelete(update._id)}
-                                            >
-                                                Delete
-                                            </Link>
-
+                                            <div className="flex gap-2">
+                                                <Link
+                                                    to=""
+                                                    style={{ color: "#005A9C" }}
+                                                    onClick={() => {
+                                                        setCurrentUpdateId(update._id);
+                                                        setFormData({ desc: update.desc });
+                                                        openModal();
+                                                    }}
+                                                >
+                                                    Update
+                                                </Link>
+                                                <Link
+                                                    to=""
+                                                    style={{ color: "#005A9C" }}
+                                                    onClick={() => handleDelete(update._id)}
+                                                >
+                                                    Delete
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
+                                    <p className="mb-2 text-sm text-gray-400 font-normal">
 
-                                    <p>
+                                        [{update.sd}] {update.date}
+                                    </p>
+
+
+                                    <p className='dark:text-white'>
                                         {update.desc}
                                     </p>
                                 </div>
+
                             </Link>
                         </div>
 

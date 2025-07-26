@@ -93,7 +93,7 @@ const Account = () => {
                         </div>
                     </div>
 
-                    <div className="mb-4 bg-white shadow-md rounded-lg p-6">
+                    <div className="card mb-4 bg-white shadow-md rounded-lg p-6">
                         <div className="mb-5">
                             <p className="font-medium">Account</p>
                             <p className="text-gray-600">{userProfile.act ? userProfile.act : "Account type"}</p>

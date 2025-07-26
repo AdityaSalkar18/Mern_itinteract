@@ -38,7 +38,7 @@
 //       try {
 //         const token = localStorage.getItem("token");
 
-//         const response = await axios.get("http://localhost:8080/api/reply/myreply", {
+//         const response = await axios.get("http://localhost:8080/api/api/reply/myreply", {
 //           headers: {
 //             Authorization: `Bearer ${token}`,
 //             "Content-Type": "application/json",
@@ -198,7 +198,7 @@
 //       try {
 //         const token = localStorage.getItem("token");
 
-//         const response = await axios.get("http://localhost:8080/api/reply/myreply", {
+//         const response = await axios.get("http://localhost:8080/api/api/reply/myreply", {
 //           headers: {
 //             Authorization: `Bearer ${token}`,
 //             "Content-Type": "application/json",
@@ -400,7 +400,7 @@ export default function TaskImpact() {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await axios.get("http://localhost:8080/api/reply/myreply", {
+        const response = await axios.get("http://localhost:8080/api/api/reply/myreply", {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

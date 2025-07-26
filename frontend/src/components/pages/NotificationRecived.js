@@ -41,7 +41,7 @@ export default function NotificationRecived() {
 // }
 
 // try {
-//   const url = "http://localhost:8080/api/notification";
+//   const url = "http://localhost:8080/api/api/notification";
 
 //   const payload ={ 
 //     reciverid:reciverid,
@@ -85,7 +85,7 @@ export default function NotificationRecived() {
         
         const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:8080/api/notification/recived-notification', {
+        const response = await fetch('http://localhost:8080/api/api/notification/recived-notification', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

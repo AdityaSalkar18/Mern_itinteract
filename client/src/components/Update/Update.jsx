@@ -201,7 +201,7 @@ const Update = () => {
                         <p className="mb-2 text-sm text-gray-400 font-normal">[{update.sd}] {update.date}</p>
                       </div>
                     </div>
-                    <p>
+                    <p className='dark:text-white'>
                       {update.desc}
                     </p>
                   </div>

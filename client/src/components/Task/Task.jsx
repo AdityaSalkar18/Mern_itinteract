@@ -39,24 +39,24 @@ const Task = () => {
   const openModal = () => {
     document.getElementById("crud-modal").classList.remove("hidden");
   };
-  
+
   const toggleModal = () => {
     const modal = document.getElementById("crud-modal");
     modal.classList.toggle("hidden");
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const taskFormData = { ...formData, sd: subdomain };
       const url = "http://localhost:8080/api/task";
-  
+
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -65,20 +65,20 @@ const Task = () => {
         },
         body: JSON.stringify(taskFormData),
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       console.log("Task share:", data);
       setSuccessMessage("Task shared successfully");
       setError("");
-  
+
       // Automatically close alert and modal after 2 seconds
       setTimeout(() => {
         setSuccessMessage("");
-  
+
         // Close modal after successful message submission
         const modal = document.getElementById("crud-modal");
         modal.classList.add("hidden"); // Add the "hidden" class to close the modal
@@ -87,14 +87,14 @@ const Task = () => {
       setError(error.message);
       setSuccessMessage("");
       console.error("Error sharing task:", error);
-  
+
       // Automatically close alert after 2 seconds
       setTimeout(() => {
         setError("");
       }, 2000);
     }
   };
-  
+
   return (
     <>
       <div className="container mx-auto px-4 my-8 mt-28">
@@ -162,8 +162,8 @@ const Task = () => {
             </Link> */}
 
 
-            <Link onClick={openModal}  class="w-full max-w-4xl inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
-             <span class="w-full">Add Task, Ask Questions, Share Errors, Add Challenges, Collaborate Projects</span>
+            <Link onClick={openModal} class="w-full max-w-4xl inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+              <span class="w-full">Add Task, Ask Questions, Share Errors, Add Challenges, Collaborate Projects</span>
             </Link>
 
           </div>
@@ -177,7 +177,7 @@ const Task = () => {
                 <Link to={`/taskview/${task._id}`}>
                   <div>
                     <div className="relative w-full">
-                      <div className="flex items-center">
+                      <div className="flex ">
 
                         <img
                           className="w-10 h-10 rounded-full"
@@ -200,17 +200,17 @@ const Task = () => {
 
 
 
-                    <h6 className='mb-2 '>
-                      {task.tt}
-                    </h6>
-                    <p className='mb-2'>
-                      [  {task.tr.length > 50 ? task.tr.substring(0, 50) + "..." : task.tr}]
-                    </p>
 
-                    <p>
+                    <h6 className="mb-2 text-gray-900 dark:text-white font-medium ">  {task.tt.length > 50 ? task.tt.substring(0, 50) + "..." : task.tt}</h6>
+                    <p className="mb-2 dark:text-white">
+                      [{task.tr.length > 50 ? task.tr.substring(0, 50) + "..." : task.tr}]
+                    </p>
+                    <p className='dark:text-white'>
                       {task.tdesc.length > 100 ? task.tdesc.substring(0, 100) + "..." : task.tdesc}
                     </p>
+
                   </div>
+
 
                 </Link>
 
@@ -226,149 +226,149 @@ const Task = () => {
         </div>
 
 
-        
+
 
         <div
-  id="crud-modal"
-  tabIndex="-1"
-  aria-hidden="true"
-  className="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden w-full h-screen bg-black bg-opacity-50"
->
-  <div className="relative w-full max-w-md max-h-full p-4">
-    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-      {error && (
-        <div
-          className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-          role="alert"
+          id="crud-modal"
+          tabIndex="-1"
+          aria-hidden="true"
+          className="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden w-full h-screen bg-black bg-opacity-50"
         >
-          <span className="font-medium">Error: </span> {error}
-        </div>
-      )}
-      {successMessage && (
-        <div
-          className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-          role="alert"
-        >
-          <span className="font-medium">Success: </span> {successMessage}
-        </div>
-      )}
+          <div className="relative w-full max-w-md max-h-full p-4">
+            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+              {error && (
+                <div
+                  className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                  role="alert"
+                >
+                  <span className="font-medium">Error: </span> {error}
+                </div>
+              )}
+              {successMessage && (
+                <div
+                  className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                  role="alert"
+                >
+                  <span className="font-medium">Success: </span> {successMessage}
+                </div>
+              )}
 
-      <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Add New Task
-        </h3>
-        <button
-          onClick={toggleModal}
-          type="button"
-          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-        >
-          <svg
-            className="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
-          </svg>
-          <span className="sr-only">Close modal</span>
-        </button>
-      </div>
+              <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Add New Task
+                </h3>
+                <button
+                  onClick={toggleModal}
+                  type="button"
+                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  <svg
+                    className="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 14"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                    />
+                  </svg>
+                  <span className="sr-only">Close modal</span>
+                </button>
+              </div>
 
-      <form className="p-4 md:p-5" onSubmit={handleSubmit}>
-        <div className="col-span-2 mb-4">
-          <label
-            htmlFor="tt"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Add Task Title
-          </label>
-          <input
-            id="tt"
-            name="tt"
-            type="text"
-            value={formData.tt}
-            onChange={handleChange}
-            placeholder="Add Task Title"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-          />
-        </div>
+              <form className="p-4 md:p-5" onSubmit={handleSubmit}>
+                <div className="col-span-2 mb-4">
+                  <label
+                    htmlFor="tt"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Add Task Title
+                  </label>
+                  <input
+                    id="tt"
+                    name="tt"
+                    type="text"
+                    value={formData.tt}
+                    onChange={handleChange}
+                    placeholder="Add Task Title"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  />
+                </div>
 
-        <div className="col-span-2 mb-4">
-          <label
-            htmlFor="tc"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Select Task Complexity
-          </label>
-          <select
-            id="tc"
-            name="tc"
-            value={formData.tc}
-            onChange={handleChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-          >
-            <option value="Default">Default</option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
-        </div>
+                <div className="col-span-2 mb-4">
+                  <label
+                    htmlFor="tc"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Select Task Complexity
+                  </label>
+                  <select
+                    id="tc"
+                    name="tc"
+                    value={formData.tc}
+                    onChange={handleChange}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  >
+                    <option value="Default">Default</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
 
-        <div className="col-span-2 mb-4">
-          <label
-            htmlFor="tr"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Add Task Requirement
-          </label>
-          <input
-            id="tr"
-            name="tr"
-            type="text"
-            value={formData.tr}
-            onChange={handleChange}
-            placeholder="Add Task Requirement"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-          />
-        </div>
+                <div className="col-span-2 mb-4">
+                  <label
+                    htmlFor="tr"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Add Task Requirement
+                  </label>
+                  <input
+                    id="tr"
+                    name="tr"
+                    type="text"
+                    value={formData.tr}
+                    onChange={handleChange}
+                    placeholder="Add Task Requirement"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  />
+                </div>
 
-        <div className="col-span-2 mb-4">
-          <label
-            htmlFor="tdesc"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Task Description
-          </label>
-          <textarea
-            id="tdesc"
-            name="tdesc"
-            rows="3"
-            value={formData.tdesc}
-            onChange={handleChange}
-            placeholder="Write task description here"
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          ></textarea>
-        </div>
+                <div className="col-span-2 mb-4">
+                  <label
+                    htmlFor="tdesc"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Task Description
+                  </label>
+                  <textarea
+                    id="tdesc"
+                    name="tdesc"
+                    rows="3"
+                    value={formData.tdesc}
+                    onChange={handleChange}
+                    placeholder="Write task description here"
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  ></textarea>
+                </div>
 
-        <div className="flex justify-end">
-        <button
-            type="submit"
-            className="text-white inline-flex items-center bg-[#005A9C] hover:bg-[#00407A] focus:ring-4 focus:outline-none focus:ring-[#00407A] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          >
-            Add
-          </button>
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    className="text-white inline-flex items-center bg-[#005A9C] hover:bg-[#00407A] focus:ring-4 focus:outline-none focus:ring-[#00407A] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  >
+                    Add
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 
 

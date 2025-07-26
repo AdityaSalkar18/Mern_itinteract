@@ -14,7 +14,7 @@ export default function StudentProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/profile/complete/student');
+        const response = await axios.get('http://localhost:8080/api/api/profile/complete/student');
         setProfiles(response.data);
       } catch (error) {
         console.error('Error fetching complete profiles:', error);
@@ -62,7 +62,7 @@ export default function StudentProfile() {
     }
 
     try {
-      const url = "http://localhost:8080/api/notification";
+      const url = "http://localhost:8080/api/api/notification";
 
       const payload = {
         reciverid: reciverid,
@@ -102,7 +102,7 @@ export default function StudentProfile() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const url = "http://localhost:8080/api/profile/get-my-profile"; // Update the URL to your backend server running on port 8080
+        const url = "http://localhost:8080/api/api/profile/get-my-profile"; // Update the URL to your backend server running on port 8080
         const response = await fetch(url, {
           method: "GET",
           headers: {

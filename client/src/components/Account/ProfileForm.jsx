@@ -327,7 +327,7 @@ const ProfileForm = () => {
 
 
                         <div>
-                            <label
+                            {/* <label
                                 htmlFor="accountType"
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
@@ -345,7 +345,31 @@ const ProfileForm = () => {
                                 </option>
                                 <option value="Student">Student</option>
                                 <option value="User">User</option>
+                            </select> */}
+
+                            <label
+                                htmlFor="accountType"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >
+                                Account Type
+                            </label>
+
+                            <select
+                                id="accountType"
+                                name="act"
+                                value={formData.act}
+                                onChange={handleChange}
+                                disabled
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+               focus:ring-blue-500 focus:border-blue-500 block w-full p-3 
+               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+               dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+               cursor-not-allowed opacity-50"
+                            >
+                                <option value="Student">Student</option>
+                                <option value="User">User</option>
                             </select>
+
                         </div>
 
 
@@ -433,7 +457,7 @@ const ProfileForm = () => {
 
 
                         <div className="mb-6">
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Enter Your Email Address
                             </label>
                             <input
@@ -447,7 +471,22 @@ const ProfileForm = () => {
                             />
                             {validationErrors.email && (
                                 <p className="mt-2 text-sm text-red-600">{validationErrors.email}</p>
-                            )}
+                            )} */}
+
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                 Email Address
+                            </label>
+
+                            <input
+    className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white opacity-50 cursor-not-allowed ${validationErrors.email ? "border-red-500" : "border-gray-300"
+        }`}
+    type="email"
+    placeholder="name@example.com"
+    name="email"
+    value={formData.email}
+    disabled
+/>
+
                         </div>
 
                         <div className="mb-6">

@@ -11,7 +11,7 @@ const UserVerification = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/api/users/verify-otp", { otp });
+      const res = await axios.post("http://localhost:8080/api/api/users/verify-otp", { otp });
 
       setSuccessMessage("Verification Code Verified");
 
