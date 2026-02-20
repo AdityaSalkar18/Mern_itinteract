@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import { motion } from "framer-motion";
 import networkLogo from './network.png';
 import './Landing.css'
-import bgImage from "./bg.jpg";
+import bgImage from "./vcet.jpg";
 // url('https://as1.ftcdn.net/v2/jpg/08/84/26/92/1000_F_884269203_mNDqsfxvN6dP65AE2eDEitdGoV6qEbM1.jpg')
 const Landing = () => {
 
@@ -133,7 +133,7 @@ className="mt-16 bg-white dark:bg-gray-900 bg-no-repeat bg-cover bg-center"
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.h1
-          className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-[#005A9C] md:text-5xl lg:text-6xl"
+          className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
@@ -141,7 +141,7 @@ className="mt-16 bg-white dark:bg-gray-900 bg-no-repeat bg-cover bg-center"
           ITInteract
         </motion.h1>
         <motion.h3
-          className="mb-8 text-lg font-normal text-gray-600 lg:text-xl sm:px-16 lg:px-48"
+          className="mb-8 text-lg font-normal text-gray-200 lg:text-xl sm:px-16 lg:px-48"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}

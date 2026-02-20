@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import { motion } from "framer-motion";
 import networkLogo from './network.png';
 import { Navigate } from "react-router-dom";
-import bgImage from "./bg.jpg";
+import bgImage from "./vcet.jpg";
 
 const Home = () => {
 
@@ -69,7 +69,7 @@ const Home = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.h1
-  className="mt-6  mb-4 text-4xl font-extrabold tracking-tight leading-none text-[#005A9C] md:text-5xl lg:text-6xl"
+  className="mt-6  mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl"
   initial={{ opacity: 0, scale: 0.9 }}
   animate={{ opacity: 1, scale: 1 }}
   transition={{ duration: 1, ease: "easeOut" }}
@@ -78,7 +78,7 @@ const Home = () => {
 </motion.h1>
 
         <motion.h3
-          className="mb-8 text-lg font-normal text-gray-600 lg:text-xl sm:px-16 lg:px-48"
+          className="mb-8 text-lg font-normal text-gray-200 lg:text-xl sm:px-16 lg:px-48"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -201,121 +201,121 @@ const Home = () => {
         <div className="container mx-auto  my-28 px-4 ">
 
 
-          <div class="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            <div class="sm:hidden">
-              <label for="tabs" class="sr-only">Select tab</label>
-              <select id="tabs" class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <div className="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <div className="sm:hidden">
+              <label for="tabs" className="sr-only">Select tab</label>
+              <select id="tabs" className="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option>Statistics</option>
                 <option>Key Insights</option>
                 <option>FAQ</option>
               </select>
             </div>
-            <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400 rtl:divide-x-reverse" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
-              <li class="w-full">
-                <button id="stats-tab" data-tabs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="true" class="inline-block w-full p-4 rounded-ss-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Statistics</button>
+            <ul className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400 rtl:divide-x-reverse" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
+              <li className="w-full">
+                <button id="stats-tab" data-tabs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="true" className="inline-block w-full p-4 rounded-ss-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Statistics</button>
               </li>
-              <li class="w-full">
-                <button id="about-tab" data-tabs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="false" class="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Key Insights</button>
+              <li className="w-full">
+                <button id="about-tab" data-tabs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="false" className="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Key Insights</button>
               </li>
-              <li class="w-full">
-                <button id="faq-tab" data-tabs-target="#faq" type="button" role="tab" aria-controls="faq" aria-selected="false" class="inline-block w-full p-4 rounded-se-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">FAQ</button>
+              <li className="w-full">
+                <button id="faq-tab" data-tabs-target="#faq" type="button" role="tab" aria-controls="faq" aria-selected="false" className="inline-block w-full p-4 rounded-se-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">FAQ</button>
               </li>
             </ul>
-            <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
-              <div class=" p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-                <dl class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-[#005A9C] opacity-90 sm:grid-cols-3 xl:grid-cols-6 dark:text-white sm:p-8">
-                  <div class="flex flex-col items-center justify-center">
-                    <dt class="mb-2 text-3xl font-extrabold">1000+</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">Student</dd>
+            <div id="fullWidthTabContent" className="border-t border-gray-200 dark:border-gray-600">
+              <div className=" p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                <dl className="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-[#005A9C] opacity-90 sm:grid-cols-3 xl:grid-cols-6 dark:text-white sm:p-8">
+                  <div className="flex flex-col items-center justify-center">
+                    <dt className="mb-2 text-3xl font-extrabold">1000+</dt>
+                    <dd className="text-gray-500 dark:text-gray-400">Student</dd>
                   </div>
-                  <div class="flex flex-col items-center justify-center">
-                    <dt class="mb-2 text-3xl font-extrabold">1000+</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">Professional</dd>
+                  <div className="flex flex-col items-center justify-center">
+                    <dt className="mb-2 text-3xl font-extrabold">1000+</dt>
+                    <dd className="text-gray-500 dark:text-gray-400">Professional</dd>
                   </div>
-                  <div class="flex flex-col items-center justify-center">
-                    <dt class="mb-2 text-3xl font-extrabold">2000+</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">Total USers</dd>
+                  <div className="flex flex-col items-center justify-center">
+                    <dt className="mb-2 text-3xl font-extrabold">2000+</dt>
+                    <dd className="text-gray-500 dark:text-gray-400">Total USers</dd>
                   </div>
-                  <div class="flex flex-col items-center justify-center">
-                    <dt class="mb-2 text-3xl font-extrabold">5</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">Domains</dd>
+                  <div className="flex flex-col items-center justify-center">
+                    <dt className="mb-2 text-3xl font-extrabold">5</dt>
+                    <dd className="text-gray-500 dark:text-gray-400">Domains</dd>
                   </div>
-                  <div class="flex flex-col items-center justify-center">
-                    <dt class="mb-2 text-3xl font-extrabold">25+</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">SubDomain</dd>
+                  <div className="flex flex-col items-center justify-center">
+                    <dt className="mb-2 text-3xl font-extrabold">25+</dt>
+                    <dd className="text-gray-500 dark:text-gray-400">SubDomain</dd>
                   </div>
-                  <div class="flex flex-col items-center justify-center">
-                    <dt class="mb-2 text-3xl font-extrabold">10</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">Features</dd>
+                  <div className="flex flex-col items-center justify-center">
+                    <dt className="mb-2 text-3xl font-extrabold">10</dt>
+                    <dd className="text-gray-500 dark:text-gray-400">Features</dd>
                   </div>
                 </dl>
               </div>
-              <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="about" role="tabpanel" aria-labelledby="about-tab">
+              <div className="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="about" role="tabpanel" aria-labelledby="about-tab">
                 
 
-                <ul role="list" class="space-y-4 text-gray-500 dark:text-gray-400">
-                  <li class="flex space-x-2 rtl:space-x-reverse items-center">
+                <ul role="list" className="space-y-4 text-gray-500 dark:text-gray-400">
+                  <li className="flex space-x-2 rtl:space-x-reverse items-center">
                     
-                    <span class="leading-tight">Updates: Stay informed with the latest progress and developments.</span>
+                    <span className="leading-tight">Updates: Stay informed with the latest progress and developments.</span>
                   </li>
-                  <li class="flex space-x-2 rtl:space-x-reverse items-center">
+                  <li className="flex space-x-2 rtl:space-x-reverse items-center">
                    
-                    <span class="leading-tight">Tasks: Dive into the responsibilities shaping impactful results.</span>
+                    <span className="leading-tight">Tasks: Dive into the responsibilities shaping impactful results.</span>
                   </li>
-                  <li class="flex space-x-2 rtl:space-x-reverse items-center">
+                  <li className="flex space-x-2 rtl:space-x-reverse items-center">
                   
-                    <span class="leading-tight">Task Impact: Discover the outcomes and transformations driven by my efforts.</span>
+                    <span className="leading-tight">Task Impact: Discover the outcomes and transformations driven by my efforts.</span>
                   </li>
                   
                 </ul>
               </div>
-              <div class="hidden p-4 bg-white rounded-lg dark:bg-gray-800" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+              <div className="hidden p-4 bg-white rounded-lg dark:bg-gray-800" id="faq" role="tabpanel" aria-labelledby="faq-tab">
                 <div id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-800 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
                   <h2 id="accordion-flush-heading-1">
-                    <button type="button" class="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" data-accordion-target="#accordion-flush-body-1" aria-expanded="true" aria-controls="accordion-flush-body-1">
+                    <button type="button" className="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" data-accordion-target="#accordion-flush-body-1" aria-expanded="true" aria-controls="accordion-flush-body-1">
                       <span>What is ITInteract?</span>
-                      <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                      <svg data-accordion-icon className="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
                       </svg>
                     </button>
                   </h2>
-                  <div id="accordion-flush-body-1" class="hidden" aria-labelledby="accordion-flush-heading-1">
-                    <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                      <p class="mb-2 text-gray-500 dark:text-gray-400">The platform that bridges the gap between IT students and industry
+                  <div id="accordion-flush-body-1" className="hidden" aria-labelledby="accordion-flush-heading-1">
+                    <div className="py-5 border-b border-gray-200 dark:border-gray-700">
+                      <p className="mb-2 text-gray-500 dark:text-gray-400">The platform that bridges the gap between IT students and industry
                       professionals.</p>
-                      <p class="text-gray-500 dark:text-gray-400">Join, learn, and grow together for a brighter future
+                      <p className="text-gray-500 dark:text-gray-400">Join, learn, and grow together for a brighter future
                       in tech. </p>
                     </div>
                   </div>
                   <h2 id="accordion-flush-heading-2">
-                    <button type="button" class="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" data-accordion-target="#accordion-flush-body-2" aria-expanded="false" aria-controls="accordion-flush-body-2">
+                    <button type="button" className="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" data-accordion-target="#accordion-flush-body-2" aria-expanded="false" aria-controls="accordion-flush-body-2">
                       <span>Domains ITInteract Provide</span>
-                      <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                      <svg data-accordion-icon className="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
                       </svg>
                     </button>
                   </h2>
-                  <div id="accordion-flush-body-2" class="hidden" aria-labelledby="accordion-flush-heading-2">
-                    <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                      <p class="mb-2 text-gray-500 dark:text-gray-400">[ SoftwareDevelopment,DataScience,Cybersecurity,DatabaseManagement,CloudComputing]</p>
+                  <div id="accordion-flush-body-2" className="hidden" aria-labelledby="accordion-flush-heading-2">
+                    <div className="py-5 border-b border-gray-200 dark:border-gray-700">
+                      <p className="mb-2 text-gray-500 dark:text-gray-400">[ SoftwareDevelopment,DataScience,Cybersecurity,DatabaseManagement,CloudComputing]</p>
                      
                     </div>
                   </div>
                   <h2 id="accordion-flush-heading-3">
-                    <button type="button" class="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" data-accordion-target="#accordion-flush-body-3" aria-expanded="false" aria-controls="accordion-flush-body-3">
+                    <button type="button" className="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" data-accordion-target="#accordion-flush-body-3" aria-expanded="false" aria-controls="accordion-flush-body-3">
                       <span>SubDomains ITInteracrt Provide</span>
-                      <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                      <svg data-accordion-icon className="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
                       </svg>
                     </button>
                   </h2>
-                  <div id="accordion-flush-body-3" class="hidden" aria-labelledby="accordion-flush-heading-3">
-                    <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                      <p class="mb-2 text-gray-500 dark:text-gray-400">["FrontendDevelopment", "BackendDevelopment", "FullStackDevelopment", "MobileAppDevelopment"]</p>
-                      <p class="mb-2 text-gray-500 dark:text-gray-400">["DataAnalysis", "MachineLearning", "ArtificialIntelligence", "DataEngineering"]</p>
-                      <p class="mb-2 text-gray-500 dark:text-gray-400"> ["SecurityAnalysis", "EthicalHacking", "IncidentResponse", "Governance"]</p>
-                      <p class="mb-2 text-gray-500 dark:text-gray-400">["DatabaseAdministration", "DataEngineering", "DatabaseDevelopment", "DataAnalysis"]</p>
-                      <p class="mb-2 text-gray-500 dark:text-gray-400"> ["CloudEngineering", "CloudArchitecture", "CloudSecurity", "CloudAdministration"]</p>
+                  <div id="accordion-flush-body-3" className="hidden" aria-labelledby="accordion-flush-heading-3">
+                    <div className="py-5 border-b border-gray-200 dark:border-gray-700">
+                      <p className="mb-2 text-gray-500 dark:text-gray-400">["FrontendDevelopment", "BackendDevelopment", "FullStackDevelopment", "MobileAppDevelopment"]</p>
+                      <p className="mb-2 text-gray-500 dark:text-gray-400">["DataAnalysis", "MachineLearning", "ArtificialIntelligence", "DataEngineering"]</p>
+                      <p className="mb-2 text-gray-500 dark:text-gray-400"> ["SecurityAnalysis", "EthicalHacking", "IncidentResponse", "Governance"]</p>
+                      <p className="mb-2 text-gray-500 dark:text-gray-400">["DatabaseAdministration", "DataEngineering", "DatabaseDevelopment", "DataAnalysis"]</p>
+                      <p className="mb-2 text-gray-500 dark:text-gray-400"> ["CloudEngineering", "CloudArchitecture", "CloudSecurity", "CloudAdministration"]</p>
                      
                     </div>
                   </div>
@@ -431,30 +431,30 @@ const Home = () => {
           
         </div>
 
-        <footer class="bg-white rounded-lg shadow-sm dark:bg-gray-900 w-full">
-    <div class="w-full mx-auto p-4 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <Link to="#" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-            <img src={networkLogo} class="h-8" alt="ITInteract" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-[#005A9C]">ITInteract</span>
+        <footer className="bg-white rounded-lg shadow-sm dark:bg-gray-900 w-full">
+    <div className="w-full mx-auto p-4 md:py-8">
+        <div className="sm:flex sm:items-center sm:justify-between">
+            <Link to="#" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+            <img src={networkLogo} className="h-8" alt="ITInteract" />
+                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-[#005A9C]">ITInteract</span>
             </Link>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+            <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                 <li>
-                    <Link to="#" class="hover:underline me-4 md:me-6">About</Link>
+                    <Link to="#" className="hover:underline me-4 md:me-6">About</Link>
                 </li>
                 <li>
-                    <Link to="#" class="hover:underline me-4 md:me-6">Privacy Policy</Link>
+                    <Link to="#" className="hover:underline me-4 md:me-6">Privacy Policy</Link>
                 </li>
                 <li>
-                    <Link to="#" class="hover:underline me-4 md:me-6">Licensing</Link>
+                    <Link to="#" className="hover:underline me-4 md:me-6">Licensing</Link>
                 </li>
                 <li>
-                    <Link to="#" class="hover:underline">Contact</Link>
+                    <Link to="#" className="hover:underline">Contact</Link>
                 </li>
             </ul>
         </div>
-        <hr class="my-6 border-gray-200 dark:border-gray-700 lg:my-8" />
-        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="https://flowbite.com/" class="hover:underline">ITInteract</a>. All Rights Reserved.</span>
+        <hr className="my-6 border-gray-200 dark:border-gray-700 lg:my-8" />
+        <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="https://flowbite.com/" className="hover:underline">ITInteract</a>. All Rights Reserved.</span>
     </div>
 </footer>
 

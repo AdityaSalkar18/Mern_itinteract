@@ -65,7 +65,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import networkLogo from './network.png';
-import bg from './bg.jpg';
+import bg from './vcet.jpg';
 
 export default function Signup() {
   const [data, setData] = useState({

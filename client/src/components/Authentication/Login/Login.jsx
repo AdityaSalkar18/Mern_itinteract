@@ -63,7 +63,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import networkLogo from './network.png';
-import bg from './bg.jpg';
+import bg from './vcet.jpg';
 import { PiStudentBold } from "react-icons/pi";
 import { PiUserBold } from "react-icons/pi";
 
